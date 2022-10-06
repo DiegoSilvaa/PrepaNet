@@ -1,0 +1,89 @@
+.logo {  
+  position:absolute;
+  margin-left: 160px;
+  margin-top: 60px;
+  border-radius: 25px;
+}
+
+.logoTec { 
+  margin-left: 10px;
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+
+.back {
+  background-image: url("prepanet.jpg");
+  height: 700px;
+  margin-left: -100px;
+}
+
+.app {
+  font-family: sans-serif;
+  gap: 10px;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+input[type="text"],
+input[type="password"] {
+  height: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"] {
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  padding: 10px 60px;
+  border-radius: 10px;
+  margin: 10px 0px;
+  cursor: pointer;
+  font-size: 15px;
+  border: 1.5px solid #000000;
+  color: #ffffff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  height: 700px;
+  width: 400px;
+  margin-left: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.list-container {
+  display: flex;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.form-settings{
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 10px;
+  margin-bottom: 30px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+}
