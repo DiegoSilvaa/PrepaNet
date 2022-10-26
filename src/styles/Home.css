@@ -1,0 +1,39 @@
+.Chart-top-right{
+  background: white;
+  border-radius: 30px;
+  width: 500px;
+  height: 290px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-left: 20px;
+  margin-top: -290px;
+}
+
+.Chart-top-left {
+background: white;
+  border-radius: 30px;
+  width: 700px;
+  height: 290px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-left: 550px;
+  margin-top: 20px;
+}
+
+.Chart-bottom-left{
+  background: white;
+  border-radius: 30px;
+  width: 700px;
+  height: 290px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-left: 550px;
+  margin-top: 20px;
+}
+
+.Chart-bottom-right{
+  background: white;
+  border-radius: 30px;
+  width: 500px;
+  height: 290px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-left: 20px;
+  margin-top: -290px;
+}

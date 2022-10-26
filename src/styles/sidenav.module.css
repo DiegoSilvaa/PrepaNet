@@ -1,11 +1,8 @@
 .sidenav {
     width: 250px;
-    transition: width 0.3s ease-in-out;
-    height: 96vh;
-    background-color: rgb(15, 12, 161);
+    height: 100%;
+    background-color: rgb(18, 17, 95);
     padding-top: 30px;
-    border-radius: 0px 25px 25px 0px;
-    box-shadow: 5px 10px;
 }
   
 .sideitem {
@@ -21,7 +18,7 @@
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  padding-top: 350px;
+  padding-top: 370px;
   color: #c1c9d2;
   cursos:pointer;
   text-decoration: none;

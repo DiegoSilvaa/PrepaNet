@@ -4,9 +4,6 @@ body {
 }
  
 .App {
+  font-family: Raleway;
   display: flex;
-}
- 
-main {
-  padding: 10px;
 }

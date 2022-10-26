@@ -1,0 +1,55 @@
+
+.tableSett{
+  text-align: center;
+  background: white;
+  border-radius: 30px;
+  width: 350px;
+  height: 600px;
+  margin-left: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.tableStats
+{
+  background: white;
+  border-radius: 30px;
+  width: 860px;
+  height: 600px;
+  margin-left: 400px;
+  margin-top: -600px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.Form_1{
+  position: relative;
+  top: 12%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.title2 {
+  position: relative;
+  top: 10%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+}
+
+.button1{
+  position: relative;
+  top: 5%;
+  left: 88%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.InfoStats{
+  position: relative;
+  top:10%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
