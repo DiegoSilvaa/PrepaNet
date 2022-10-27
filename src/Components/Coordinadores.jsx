@@ -11,7 +11,8 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar, GridLinkOperator } from '@mui/x-data-grid';
-
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -57,6 +58,11 @@ const columns = [
     valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
+    {
+    field: 'email',
+    headerName: 'Email',
+    width: 150,
+  },
   {
     field: 'campus',
     headerName: 'Campus',
@@ -64,14 +70,20 @@ const columns = [
   },
 ];
 
-const rows = [
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', campus: "Campus Monterrey" },
-  { id: "A00830003", lastName: 'Silva', firstName: 'Diego', campus: "Campus Queretaro" },
-  { id: "A00830002", lastName: 'Silva', firstName: 'Diego', campus: "Campus Torreon" },
-
-]
 
 export default function Settings() {
+  const [isRows, setIsRows] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://prepanet-366500.wl.r.appspot.com/api/coordinadores/")
+      .then(res => {
+        console.log(res)
+        setIsRows(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  })
 
   const [personName, setPersonName] = React.useState([]);
   
@@ -117,7 +129,7 @@ export default function Settings() {
       <div className="tableStats">
         <Box sx={{ pt: 4, pl: 3, height: '90%', width: '95%' }}>
           <DataGrid
-            rows={rows}
+            rows={isRows}
             columns={columns}
             pageSize={15}
             rowsPerPageOptions={[15]}

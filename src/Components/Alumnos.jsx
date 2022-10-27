@@ -2,9 +2,12 @@ import * as React from 'react';
 import '/src/styles/Alumnos.css'
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 const columns = [
-  { field: 'id', headerName: 'Matricula', width: 100 },
+  { field: 'id', headerName: 'ID', width: 100 },
+  { field: 'matricula', headerName: 'Matricula', width: 100 },
   {
     field: 'firstName',
     headerName: 'First name',
@@ -25,8 +28,13 @@ const columns = [
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
   {
-    field: 'age',
-    headerName: 'Age',
+    field: 'email',
+    headerName: 'Email',
+    width: 110,
+  },
+  {
+    field: 'edad',
+    headerName: 'Edad',
     width: 110,
   },
   {
@@ -35,56 +43,40 @@ const columns = [
     width: 170,
   },
   {
-    field: 'curso',
+    field: 'taller',
     headerName: 'Taller',
     width: 150,
   },
 ];
-
-const rows = [
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-  { id: "A00830001", lastName: 'Silva', firstName: 'Diego', age: 20, campus: "Campus Monterrey", curso: "Taller_1" },
-];
+/*
+const [isRows, setIsRows] = useState([]);
+  fetch("https://prepanet-366500.wl.r.appspot.com/api/alumnos/")
+    .then((response) => response.json())
+    .then((dog) => {
+      console.log(dog)
+    }); /*/
 
 export default function Alumnos() {
+  const [isRows, setIsRows] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://prepanet-366500.wl.r.appspot.com/api/alumnos/")
+      .then(res => {
+        console.log(res)
+        setIsRows(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  })
+
   return (
     <div className="Back">
       <div className="TopBar"></div>
       <div className="MidBar">
-        <Box sx={{ pt: 3, pl:4, height: '90%', width: '95%' }}>
+        <Box sx={{ pt: 3, pl: 4, height: '90%', width: '95%' }}>
           <DataGrid
-            rows={rows}
+            rows={isRows}
             columns={columns}
             pageSize={15}
             rowsPerPageOptions={[15]}

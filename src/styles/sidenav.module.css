@@ -18,10 +18,10 @@
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  padding-top: 370px;
   color: #c1c9d2;
   cursos:pointer;
   text-decoration: none;
+  margin-top:355px;
 }
 
 .sideitemini
