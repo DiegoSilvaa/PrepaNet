@@ -42,40 +42,13 @@ export default function SignInSide() {
   
   const navigate = useNavigate();
   // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated") || false));
-  
+
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const infoInputs = new FormData(e.currentTarget);
+    e.preventDefault();
+    navigate('/');
 
-    console.log({
-      username: infoInputs.get('username'),
-      password: infoInputs.get('password'),
-    });
-    
-    const account = data.find((user) => user.username === infoInputs.get('username'));
 
-    if (account.password !== infoInputs.get('password')) {
-      setErrorMessages({ name: "pass", message: errors.pass });
-    }
-
-    if (account.username !== infoInputs.get('username')) {
-      setErrorMessages({ name: "uname", message: errors.pass });
-    }
-
-    if (account && account.password === infoInputs.get('password')) {
-      console.log("Valid Username")
-      setauthenticated(true)
-      localStorage.setItem("authenticated", true);
-      navigate({dashboard});
-    }
   };
-
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <Alert severity="error" sx={{ px: 14 }}>This is an error alert — {errorMessages.message}!</Alert>
-    );
 
 
 
@@ -83,6 +56,8 @@ export default function SignInSide() {
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
+
+        {/* {false && 'Error'} */}
         <CssBaseline />
         <Grid
           item
@@ -124,7 +99,7 @@ export default function SignInSide() {
                 name="username"
                 autoComplete="username"
                 autoFocus
-              /> {renderErrorMessage("uname")}
+              />
               <TextField
                 margin="normal"
                 required
@@ -134,7 +109,7 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />{renderErrorMessage("pass")}
+              />
               <Button
                 type="submit"
                 fullWidth

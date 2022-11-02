@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "/src/styles/Home.css"
 import Chart from "react-apexcharts";
+import Sidenav from '/src/Components/Sidenav.jsx';
+
 
 class App extends Component {
   constructor(props) {
@@ -142,6 +144,9 @@ this.state2 = {
   
   render() {
     return (
+      <div>
+              <Sidenav />
+
       <div className="Back">
         <div className="TopBar"></div>
         <div className="Chart-top-left">
@@ -185,6 +190,8 @@ this.state2 = {
           />
         </div>
       </div >
+      </div>
+
     );
   }
 }
