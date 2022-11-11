@@ -1,9 +1,6 @@
 import React from 'react';
-import Sidenav from '/src/Components/Sidenav.jsx';
-import Alumnos from "/src/Components/Alumnos.jsx";
-import Home from "/src/Components/Home.jsx";
-import Periodos from "/src/Components/Periodos.jsx";
-import Coordinadores from "/src/Components/Coordinadores.jsx"
+import Home from "/src/Components/estudiante.jsx";
+import Inscripcion from "/src/Components/inscripcion.jsx";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import {
@@ -24,9 +21,7 @@ function App(){
                   {false && <Route path="/" element={<Navigate replace to="/login"/>} />}
                   {true && <Route path="/" element={<Navigate replace to="/home"/>} />}
                   <Route path="/home" element={<Home/>} />
-                  <Route path="/alumnos" element={<Alumnos />} />
-                  <Route path="/coordinadores" element={<Coordinadores />} />
-                  <Route path="/periodos" element={<Periodos />} />
+                  <Route path="/inscripciones" element={<Inscripcion />} />
                   <Route path="/login" element={<Login/>} />
                 </Routes>
               </main>

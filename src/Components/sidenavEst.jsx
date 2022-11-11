@@ -1,8 +1,7 @@
 import styles from "/src/styles/sidenav.module.css"
 import { NavLink } from "react-router-dom";
-import { navData } from "../lib/navData";
+import { navData } from "../lib/navDataEst";
 import { useState } from "react";
-import SensorDoorIcon from '@mui/icons-material/SensorDoor';
 
 export default function Sidenav() {
 

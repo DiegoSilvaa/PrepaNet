@@ -6,16 +6,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
 import App from './App';
-
-
+import Est from './AppEst';
+import Coor from './AppCoor';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <html>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+        <Est />
       </BrowserRouter>
     </React.StrictMode>
-  </html>
 );

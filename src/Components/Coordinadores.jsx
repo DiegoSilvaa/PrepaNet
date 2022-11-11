@@ -1,40 +1,27 @@
 import "/src/styles/Coor.css"
 import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar, GridLinkOperator } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridFooter,
+  useGridApiEventHandler,
+  useGridApiContext,
+  GridToolbar,
+} from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import Sidenav from '/src/Components/Sidenav.jsx';
+import Stack from '@mui/material/Stack';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
+const columnAlumno = 
+[
+  { field: 'id', headerName: 'ID', width: 100 },
+  {
+    field: 'firstName',
+    headerName: 'First name',
+    width: 150,
   },
-};
-
-
-const names = [
-  'Campus_1',
-  'Campus_2',
-  'Campus_3',
-  'Campus_4',
-  'Campus_5',
-  'Campus_6',
-  'Campus_7',
-  'Campus_8',
 ];
 
 const columns = [
@@ -67,12 +54,41 @@ const columns = [
     field: 'campus',
     headerName: 'Campus',
     width: 170,
+    //valueFormatter: ({ value }) => value.name
   },
 ];
 
+const tablaDummy = (
+  [{"id":1,"firstName":"Adriana","lastName":"Cantu","email":"adriana.cantu@tec.mx","campus":{"id":2,"name":"Guadalajara"},
+  "estudiantes":[{"id":1,"firstName":"Diego"},{"id":2,"firstName":"Diego"},{"id":3,"firstName":"Diego"},{"id":4,"firstName":"Diego"}]},
+  {"id":2,"firstName":"Ramiro","lastName":"Lopez","email":"ramiro.lopez@tec.mx","campus":{"id":3,"name":"Laguna"},
+  "estudiantes":[{"id":1,"firstName":"Diego"},{"id":2,"firstName":"Diego"},{"id":3,"firstName":"Diego"},{"id":4,"firstName":"Diego"}]},
+  {"id":3,"firstName":"Andres","lastName":"Fernandez","email":"andres.fernandez@tec.mx","campus":{"id":3,"name":"Laguna"},
+  "estudiantes":[{"id":1,"firstName":"Diego"},{"id":2,"firstName":"Diego"},{"id":3,"firstName":"Diego"},{"id":4,"firstName":"Diego"}]},]
+);
 
 export default function Settings() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isRows, setIsRows] = useState([]);
+  const [message, setMessage] = React.useState('');
+  const [adminName, setAdminName] = React.useState('');
+  const [adminLast, setAdminLast] = React.useState('');
+  const [isRowsEstudiante, setIsRowsEstudiante] = useState([]);
+
+  const Footer = () => {
+    const apiRef = useGridApiContext();
+    
+    const handleRowClick = (params) => {
+      setIsSubmitted(true);
+      setMessage(`${params.row.firstName || ''} ${params.row.lastName || ''} clicked`);
+      setAdminLast(params.row.lastName);
+      setAdminName(params.row.firstName);
+      setIsRowsEstudiante(params.row.estudiantes);
+    };
+    console.log(isRowsEstudiante);
+    useGridApiEventHandler(apiRef, 'rowClick', handleRowClick);
+  };
+
 
   useEffect(() => {
     axios.get("https://prepanet-366500.wl.r.appspot.com/api/coordinadores/")
@@ -85,60 +101,56 @@ export default function Settings() {
       })
   })
 
-  const [personName, setPersonName] = React.useState([]);
-  
+  const renderTable = (
+    <div className="contenidoTabla">
+    <div>
+      {message}
+    </div>
+    <Box sx={{ pt: 4, pl: 2, height: '100%', width: '95%' }}>
+      <DataGrid
+        columns={columnAlumno}
+        rows={isRowsEstudiante}
+        pageSize={5}
+        rowsPerPageOptions={[15]}
+        components={{
+          Toolbar: GridToolbar
+        }}
+        autoHeight
+        sx={{ pb: 5 }}
+      />
+    </Box>
+    </div>
+  );
 
   return (
-    <div className="Back">
-      <div className="TopBar"></div>
-      <div className="tableSett">
-        <div className="title_coor">
-          <b>Buscar Coordinador</b>
+<div className="Back">
+        <div className="TopBar">
         </div>
-        <div className="InfoStats">
-          <p> Buscar <strong> Campus</strong> del <strong> Coordinador </strong> </p>
+        <Stack direction="row" spacing={32}>
+    <Sidenav/>
+        <div className="allCharts">
+          <Stack direction="row" spacing={5} mt={2}>
+          <div className="tableSett">
+            <Box sx={{ pt: 4, pl: 3, height: '90%', width: '95%' }}>
+              <DataGrid
+                rows={tablaDummy}
+                columns={columns}
+                pageSize={15}
+                rowsPerPageOptions={[15]}
+                components={{
+                  Toolbar: GridToolbar, Footer
+                }}
+              />
+            </Box>
+            </div>
+            <div className="tableStats">
+            <Box sx={{ pt: 4, pl: 2, height: '90%', width: '95%' }}>
+              {isSubmitted ? renderTable : <label> Selecciona una cuenta de Admin </label>}
+            </Box>
+            </div>
+            </Stack>
         </div>
-
-        <div className="forma">
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel htmlFor="grouped-native-select">Campus</InputLabel>
-            <Select 
-              defaultValue="" 
-              id="grouped-select" 
-              label="Grouping">
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {names.map((name) => (
-                <MenuItem key={name} value={name}>{name} </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-        <div className="buttonforma">
-          <Button variant="contained"
-            endIcon={<SendIcon />}
-            onClick={() => {
-              console.log("hola")
-            }}>
-            Send
-          </Button>
-        </div>
+        </Stack>
       </div>
-
-      <div className="tableStats">
-        <Box sx={{ pt: 4, pl: 3, height: '90%', width: '95%' }}>
-          <DataGrid
-            rows={isRows}
-            columns={columns}
-            pageSize={15}
-            rowsPerPageOptions={[15]}
-            components={{
-              Toolbar: GridToolbar,
-            }}
-          />
-        </Box>
-      </div>
-    </div>
   )
 }

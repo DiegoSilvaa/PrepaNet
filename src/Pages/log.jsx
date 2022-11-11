@@ -1,63 +1,79 @@
 
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import background from "/src/public/prepanet.jpg";
-import { useState } from "react";
-import Papa from 'papaparse';
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Alert from '@mui/material/Alert';
-import dashboard from "/src/Pages/Dash.jsx"
-
+import axios from 'axios'
+import "/src/styles/App.css"
+import Stack from '@mui/material/Stack';
 
 const theme = createTheme();
+
 export default function SignInSide() {
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password"
-  };
-
-  var data;
-  Papa.parse('/Info/info.csv', {
-    header: true,
-    download: true,
-    dynamicTyping: true,
-    complete: function(results) {
-      console.log(results);
-      data = results.data;
-    }
-  });
-  
+  const [isRows, setIsRows] = useState([]);
   const navigate = useNavigate();
-  // React States
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessages, setErrorMessages] = useState({});
+  const [username, setUsername] = useState('');
+  
+const errors = {
+  uname: "Invalid username",
+  pass: "Invalid password"
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate('/');
+useEffect(() => {
+  axios.get("https://prepanet-366500.wl.r.appspot.com/api/alumnos/")
+    .then(res => {
+      console.log(res)
+      setIsRows(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+})
 
 
+  const handleSubmit = (event) => {
+    //Prevent page reload
+    event.preventDefault();
+  
+    var { uname, pass } = document.forms[0];
+  
+    // Find user login info
+    const userData = isRows.find((user) => user.matricula === uname.value);
+  
+    // Compare user info
+    if (userData) {
+      if (userData.firstName !== pass.value) {
+        // Invalid password
+        setErrorMessages({ name: "pass", message: errors.pass });
+      } else {
+        setUsername(userData.firstName);
+        setIsSubmitted(true);
+        navigate('/')
+      }
+    } else {
+      // Username not found
+      setErrorMessages({ name: "uname", message: errors.uname });
+    }
   };
 
-
-
+const renderErrorMessage = (name) =>
+name === errorMessages.name && (
+  <div className="error">
+    <Alert severity="error">{errorMessages.message}</Alert>
+  </div>
+);
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
-
-        {/* {false && 'Error'} */}
+      <Grid container component="main" sx={{ height: '100vh'}}>
         <CssBaseline />
         <Grid
           item
@@ -69,11 +85,13 @@ export default function SignInSide() {
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'left center',
+            backgroundPosition: ' left center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square 
+        sx={{
+          background: 'linear-gradient(to right bottom, #009FFD,#2A2A72)'
+          }}>
           <Box
             sx={{
               my: 8,
@@ -83,41 +101,24 @@ export default function SignInSide() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              > Sign In
-              </Button>
-            </Box>
+            <div className="login-form">
+              <form onSubmit={handleSubmit}>
+              <Stack spacing={1}>
+                <div className="input-container">
+                  <input type="text" name="uname" placeholder="Username" required />
+                  {renderErrorMessage("uname")}
+                </div>
+                <div className="input-container">
+
+                  <input type="password" name="pass" placeholder="Password" required />
+                  {renderErrorMessage("pass")}
+                </div>
+                <div className="button-container">
+                  <input type="submit" value="Entrar"/>
+                </div>
+                </Stack>
+              </form>
+        </div>
           </Box>
         </Grid>
       </Grid>

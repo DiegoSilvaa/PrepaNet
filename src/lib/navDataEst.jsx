@@ -15,23 +15,11 @@ export const navData = [
   {
     id: 1,
     icon: <PersonIcon />,
-    text: "Alumnos",
-    link: "/alumnos"
+    text: "Inscripcion",
+    link: "/inscripciones"
   },
   {
     id: 2,
-    icon: <AdminPanelSettingsIcon />,
-    text: "Coordinadores",
-    link: "/coordinadores"
-  },
-  {
-    id: 3,
-    icon: <TravelExploreIcon />,
-    text: "Periodos",
-    link: "/periodos"
-  },
-  {
-    id: 4,
     icon: <SensorDoorIcon />,
     text: "Cerrar Sesion",
     link: "/login"

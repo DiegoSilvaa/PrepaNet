@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar, GridLinkOperator } from '@mui/x-data-grid';
-import Sidenav from './Sidenav'
+import Sidenav from '/src/Components/sidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
 
 const ITEM_HEIGHT = 48;

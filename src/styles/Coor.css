@@ -1,33 +1,18 @@
-.forma {
-  position: relative;
-  top: 15%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+
+.tableSett{
+  text-align: center;
+  background: white;
+  border-radius: 30px;
+  width: 575px;
+  height: 600px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
-.title_coor {
-  position: relative;
-  top: 10%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  font-size: 40px;
-}
-
-container_corr. {
-  position: relative;
-  top: 40%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.buttonforma{
-  position: relative;
-  top:15%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+.tableStats
+{
+  background: white;
+  border-radius: 30px;
+  width: 575px;
+  height: 600px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

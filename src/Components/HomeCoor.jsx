@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "/src/styles/Home.css"
 import Chart from "react-apexcharts";
-import Sidenav from '/src/Components/Sidenav.jsx';
+import Sidenav from '/src/Components/sidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 class App extends Component {

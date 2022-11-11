@@ -20,18 +20,12 @@ export const navData = [
   },
   {
     id: 2,
-    icon: <AdminPanelSettingsIcon />,
-    text: "Coordinadores",
-    link: "/coordinadores"
-  },
-  {
-    id: 3,
     icon: <TravelExploreIcon />,
     text: "Periodos",
     link: "/periodos"
   },
   {
-    id: 4,
+    id: 3,
     icon: <SensorDoorIcon />,
     text: "Cerrar Sesion",
     link: "/login"

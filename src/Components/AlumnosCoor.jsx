@@ -11,30 +11,15 @@ import {
 } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import Sidenav from '/src/Components/Sidenav.jsx';
+import Sidenav from '/src/Components/sidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
-
 
 const Footer = () => {
   const [message, setMessage] = React.useState('');
-  const [token, isToken] = React.useState('');
   const apiRef = useGridApiContext();
-  const baseUrl = 'https://prepanet-366500.wl.r.appspot.com/api/alumnos/historial-cursos/';
 
   const handleRowClick = (params) => {
-    setMessage(`${params.row.firstName || ''} ${params.row.lastName || ''}" clicked`);    
-    
-    axios.post('https://prepanet-366500.wl.r.appspot.com/api/auth/generate-token/', {email: " Bettye_Willms@tec.mx", password: '1234'})
-      .then(res=>{
-        console.log(res.data);
-        //isToken(res.data.token);
-        //console.log(params.row.taller.id);
-        //console.log(res.data.token);
-        axios.get(`${baseUrl}`, { headers: {"x-auth-token": res.data.token}})
-          .then((response) => {
-            console.log(response.data);
-          });
-      });
+    setMessage(`${params.row.firstName || ''} ${params.row.lastName || ''}" clicked`);
   };
 
   useGridApiEventHandler(apiRef, 'rowClick', handleRowClick);
@@ -104,21 +89,22 @@ const columns = [
   },
 ];
 
+
 export default function Alumnos() {
+  const [isRows, setIsRows] = useState([]);
+ 
+  useEffect(() => {
+    axios.get("https://prepanet-366500.wl.r.appspot.com/api/alumnos/")
+      .then(res => {
+        console.log(res)
+        setIsRows(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  })
 
-const [isRows, setIsRows] = useState([]);
-useEffect(() => {
-  axios.get("https://prepanet-366500.wl.r.appspot.com/api/alumnos/")
-    .then(res => {
-      //console.log(res)
-      setIsRows(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-})
 
-    
   return (
     <div className="Back">
         <div className="TopBar">
