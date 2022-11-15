@@ -85,7 +85,7 @@ export default function Settings() {
       setAdminName(params.row.firstName);
       setIsRowsEstudiante(params.row.estudiantes);
     };
-    console.log(isRowsEstudiante);
+    //console.log(isRowsEstudiante);
     useGridApiEventHandler(apiRef, 'rowClick', handleRowClick);
   };
 
@@ -93,7 +93,7 @@ export default function Settings() {
   useEffect(() => {
     axios.get("https://prepanet-366500.wl.r.appspot.com/api/coordinadores/")
       .then(res => {
-        console.log(res)
+        //console.log(res)
         setIsRows(res.data)
       })
       .catch(err => {

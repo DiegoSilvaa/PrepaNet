@@ -12,10 +12,7 @@ import {
   } from "react-router-dom";
 import Login from './Pages/log';
 
-
 function App(){
-
-    const [isLogin, setIsLogin] = useState(false);
 
     return (
             <div className="App">

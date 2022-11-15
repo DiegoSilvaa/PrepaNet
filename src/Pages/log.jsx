@@ -12,56 +12,36 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import "/src/styles/App.css"
 import Stack from '@mui/material/Stack';
+import { createStore } from 'state-pool';
 
+
+export const UserContext = React.createContext();
 const theme = createTheme();
-
-export default function SignInSide() {
-  const [isRows, setIsRows] = useState([]);
+export default function SignInSide(props) {
   const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
-  const [username, setUsername] = useState('');
-  
-const errors = {
-  uname: "Invalid username",
-  pass: "Invalid password"
-};
+  const [isdata, setData] = useState([]);
 
-useEffect(() => {
-  axios.get("https://prepanet-366500.wl.r.appspot.com/api/alumnos/")
-    .then(res => {
-      console.log(res)
-      setIsRows(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-})
-
+  const errors = {
+    pass: "Password o email incorrectos"
+  };
 
   const handleSubmit = (event) => {
-    //Prevent page reload
     event.preventDefault();
-  
     var { uname, pass } = document.forms[0];
-  
-    // Find user login info
-    const userData = isRows.find((user) => user.matricula === uname.value);
-  
-    // Compare user info
-    if (userData) {
-      if (userData.firstName !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setUsername(userData.firstName);
-        setIsSubmitted(true);
-        navigate('/')
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
+    //console.log(uname, pass)
+    axios.post('https://prepanet-366500.wl.r.appspot.com/api/auth/generate-token/', {email: uname.value, password: pass.value},
+  { headers: {"Content-Type" : 'application/json'}})
+    .then(res=>{
+      setData(res.data);
+      //console.log(user);
+      navigate('/')
+    })
+    .catch(err=>{
+      console.log(err);
+      setErrorMessages({ name: "pass", message: errors.pass });
+    })
   };
 
 const renderErrorMessage = (name) =>
