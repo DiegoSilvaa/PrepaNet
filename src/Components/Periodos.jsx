@@ -72,6 +72,8 @@ export default function Statistics() {
   const [isRows, setRows] = React.useState([rows]);
   const [fin, setFin] = React.useState('');
   const [inicio, setInicio] = React.useState('');
+
+  
   const handleChangeInicio = (event) => {
     setInicio(event.target.value);
     //console.log(inicio);

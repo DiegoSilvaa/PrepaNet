@@ -3,56 +3,48 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Alert from '@mui/material/Alert';
 import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import background from "/src/public/prepanet.jpg";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios'
 import "/src/styles/App.css"
 import Stack from '@mui/material/Stack';
-import { createStore } from 'state-pool';
+import {useContext} from 'react';
+import { useSetState } from 'react-use';
+import { AuthContext } from '../context/Auth.context.jsx';
 
 
-export const UserContext = React.createContext();
-const theme = createTheme();
-export default function SignInSide(props) {
-  const navigate = useNavigate();
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isdata, setData] = useState([]);
+const initialState = {
+  email: '',
+  password: ''
+}
 
-  const errors = {
-    pass: "Password o email incorrectos"
-  };
+export default function SignInSide() {
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    var { uname, pass } = document.forms[0];
-    //console.log(uname, pass)
-    axios.post('https://prepanet-366500.wl.r.appspot.com/api/auth/generate-token/', {email: uname.value, password: pass.value},
-  { headers: {"Content-Type" : 'application/json'}})
-    .then(res=>{
-      setData(res.data);
-      //console.log(user);
-      navigate('/')
-    })
-    .catch(err=>{
-      console.log(err);
-      setErrorMessages({ name: "pass", message: errors.pass });
-    })
-  };
 
-const renderErrorMessage = (name) =>
-name === errorMessages.name && (
+  const { state: ContextState, login } = useContext(AuthContext);
+  const {
+    isLoggedIn,
+    loginError
+  } = ContextState;
+  const [state, setState] = useSetState(initialState);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = state;
+    login(email, password);
+    setState({
+      email: '',
+      password: ''
+    });
+  }
+
+const renderErrorMessage = (name) => (
   <div className="error">
-    <Alert severity="error">{errorMessages.message}</Alert>
+    <Alert severity="error"> Password o Email incorrectos </Alert>
   </div>
 );
 
   return (
-    <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh'}}>
         <CssBaseline />
         <Grid
@@ -82,16 +74,25 @@ name === errorMessages.name && (
             }}
           >
             <div className="login-form">
-              <form onSubmit={handleSubmit}>
+              <form name="loginForm" onSubmit={onSubmit}>
               <Stack spacing={1}>
                 <div className="input-container">
-                  <input type="text" name="uname" placeholder="Username" required />
-                  {renderErrorMessage("uname")}
+                  <input type="text" 
+                  name="email" 
+                  onChange={e => setState({email: e.target.value})} 
+                  value={state.email} 
+                  placeholder="Email"
+                  required />
                 </div>
                 <div className="input-container">
-
-                  <input type="password" name="pass" placeholder="Password" required />
-                  {renderErrorMessage("pass")}
+                  <input type="password" 
+                  name="password" 
+                  onChange={e => setState({password: e.target.value})} 
+                  value={state.password} 
+                  placeholder="Password"
+                  required  />
+                { isLoggedIn && <div>Success.</div> }
+                { loginError && renderErrorMessage('pass')}
                 </div>
                 <div className="button-container">
                   <input type="submit" value="Entrar"/>
@@ -102,6 +103,5 @@ name === errorMessages.name && (
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
   );
 }

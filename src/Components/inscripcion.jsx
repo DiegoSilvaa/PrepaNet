@@ -11,25 +11,57 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import axios from 'axios'
 
+const baseUrl = 'https://prepnet.uc.r.appspot.com/api/alumnos/curso-inscribir/';
+const baseUrl2 = 'https://prepnet.uc.r.appspot.com/api/alumnos/inscribir/';
+
 export default function Inscripcion() {
 const [token, isToken] = React.useState('');
-const baseUrl = 'https://prepanet-366500.wl.r.appspot.com/api/alumnos/curso-inscribir/';
+
 const [rowsAlumno, setIsRowsAlumno] = useState([]); 
 const [isSub, setIsSub] = useState(false);
 useEffect(() => {
-  axios.post('https://prepanet-366500.wl.r.appspot.com/api/auth/generate-token/', {email: "Bettye_Willms@tec.mx", password: '1234'},
+  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
   { headers: {"Content-Type" : 'application/json'}})
   .then(res=>{
   //console.log(res.data);
-  axios.get(`${baseUrl}`, { headers: {"x-auth-token": res.data.token}})
+  axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": res.data.token}})
     .then((response) => {
       console.log(response.data)
-      setIsSub(true);
       //console.log(isSub);
       setIsRowsAlumno(response.data);
-    });
+    })
+    .catch(err =>{
+      console.log(err)
+    })
+    ;
   })
+
+
 }, []);
+
+const handleRowClick = () => {
+
+  let token;
+
+  // console.log("hey")
+  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
+  { headers: {"Content-Type" : 'application/json'}})
+    .then(res=>{
+      console.log(res.data.token);
+      token = res.data.token
+      axios.post('https://prepnet.uc.r.appspot.com/api/alumnos/inscribir/'+rowsAlumno.id+'/',{ }, {
+        headers:{
+          'x-auth-token': token
+        }
+      }).then(res=>{  
+        setIsSub(true);
+        console.log(res)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    })
+};
 
   return (
     <div className="Back">
@@ -57,13 +89,13 @@ useEffect(() => {
         mt: 2,
         width: 900,
         height: "12%",
-        backgroundColor: 'white',
+        backgroundColor: '#0077b6',
         borderRadius: '1%',
         display: 'flex', 
         justifyContent: 'center',
         ml: 1.5,
       }}>
-        <Typography variant="h3">
+        <Typography variant="h2" color="white">
         Sistema de Inscripciones
       </Typography>
     </Box>
@@ -84,7 +116,7 @@ useEffect(() => {
           component="img"
           alt="green iguana"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="./src/public/ins.jpg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" align='center'>
@@ -95,7 +127,7 @@ useEffect(() => {
           </Typography>
         </CardContent>
         <CardActions>
-      <Button size="small"> Inscribir </Button>
+      <Button size="small" onClick={() => handleRowClick()} > Inscribirte </Button>
     </CardActions>
       </Card>
       </Box>

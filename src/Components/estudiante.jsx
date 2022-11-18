@@ -13,25 +13,40 @@ import axios from 'axios'
 export default function DividerStack() {
   
 const [token, isToken] = React.useState('');
-const baseUrl = 'https://prepanet-366500.wl.r.appspot.com/api/alumnos/historial-cursos/';
+const baseUrl = 'https://prepnet.uc.r.appspot.com//api/alumnos/historial-cursos/';
 const [rowsAlumno, setIsRowsAlumno] = useState([]); 
-const [isSub, setIsSub] = useState(false);
 
 useEffect(() => {
-  axios.post('https://prepanet-366500.wl.r.appspot.com/api/auth/generate-token/', {email: "Bettye_Willms@tec.mx", password: '1234'},
+  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
   { headers: {"Content-Type" : 'application/json'}})
   .then(res=>{
   //console.log(res.data);
   axios.get(`${baseUrl}`, { headers: {"x-auth-token": res.data.token}})
     .then((response) => {
       console.log(response.data)
-      setIsSub(true);
-      console.log(isSub);
       setIsRowsAlumno(response.data);
     });
   })
 }, []);
 
+function getColor(index){
+  var val = rowsAlumno[index]?.estatus || "white"
+  //console.log(val);
+  if (val === 'Sin Cursar') {
+    return '#D7DBDD'
+  }
+  else if (val === 'Cursando') {
+    return 'white'
+  }
+  else if (val === 'Aprobado') {
+    return '#2ECC71'
+  }
+  else if (val === 'Reprobado') {
+    return '#E74C3C '
+  } else {
+    return 'white'
+  }
+};
 
   return (
     <div className="Back">
@@ -47,12 +62,14 @@ useEffect(() => {
           mt={2}
           mb={2}
         >
-      <Card sx={{ maxWidth: 345}}>
+      <Card sx={
+        { maxWidth: 345,
+          backgroundColor: getColor(0), }}>
         <CardMedia
           component="img"
           alt="green iguana"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="./src/public/lide1.jpeg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -64,12 +81,14 @@ useEffect(() => {
         </CardContent>
       </Card>
   
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={
+        { maxWidth: 345,
+          backgroundColor: getColor(1), }}>
         <CardMedia
           component="img"
           alt="green iguana"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="./src/public/lide1.jpeg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -81,12 +100,14 @@ useEffect(() => {
         </CardContent>
       </Card>
   
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={
+        { maxWidth: 345,
+          backgroundColor: getColor(2), }}>
         <CardMedia
           component="img"
           alt="green iguana"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="./src/public/emociones.jpg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -106,12 +127,14 @@ useEffect(() => {
           paddingBottom={5}
         >
   
-      <Card sx={{ maxWidth: 345 }}>
+  <Card sx={
+        { maxWidth: 345,
+          backgroundColor: getColor(3), }}>
         <CardMedia
           component="img"
           alt="green iguana"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="./src/public/relaciones.jpg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -123,12 +146,14 @@ useEffect(() => {
         </CardContent>
       </Card>
   
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={
+        { maxWidth: 345,
+          backgroundColor: getColor(4), }}>
         <CardMedia
           component="img"
           alt="green iguana"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="./src/public/areas.jpg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -140,12 +165,14 @@ useEffect(() => {
         </CardContent>
       </Card>
   
-       <Card sx={{ maxWidth: 345 }}>
+      <Card sx={
+        { maxWidth: 345,
+          backgroundColor: getColor(5), }}>
         <CardMedia
           component="img"
           alt="green iguana"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="./src/public/metas.jpg"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
