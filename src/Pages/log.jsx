@@ -23,6 +23,7 @@ export default function SignInSide() {
 
   const { state: ContextState, login } = useContext(AuthContext);
   const {
+    isLoginPending,
     isLoggedIn,
     loginError
   } = ContextState;
@@ -91,6 +92,7 @@ const renderErrorMessage = (name) => (
                   value={state.password} 
                   placeholder="Password"
                   required  />
+                { isLoginPending && <div>Please wait...</div> }
                 { isLoggedIn && <div>Success.</div> }
                 { loginError && renderErrorMessage('pass')}
                 </div>

@@ -14,11 +14,13 @@ const initialState = {
 
 export const ContextProvider = props => {
   const [state, setState] = useSetState(initialState);
+  const setLoginPending = (isLoginPending) => setState({isLoginPending});
   const setLoginSuccess = (isLoggedIn) => setState({isLoggedIn});
   const setLoginError = (loginError) => setState({loginError});
   const setToken = (token) => setState({token});
   const setUserType = (user) => setState({user});
   const setName = (name) => setState({name});
+
   const navigate = useNavigate();
   const login = (email, password) => {
     setLoginSuccess(false);
@@ -26,9 +28,11 @@ export const ContextProvider = props => {
     setToken(null);
     setUserType(null);
     setName(null);
+    setLoginPending(true);
     axios.post('https://prepnet.uc.r.appspot.com//api/auth/generate-token/', {email, password},
     { headers: {"Content-Type" : 'application/json'}})
         .then(res=>{
+            setLoginPending(false);
             console.log(res.data);
             setLoginSuccess(true);
             setToken(res.data.token);
@@ -37,12 +41,14 @@ export const ContextProvider = props => {
             navigate("/home");
         })
         .catch(err=>{
+            setLoginPending(false);
             console.log(err);
             setLoginError('Invalid email and password');
         })
   };
 
   const logout = () => {
+    setLoginPending(false);
     setLoginSuccess(false);
     setLoginError(null);
     setToken(null);
