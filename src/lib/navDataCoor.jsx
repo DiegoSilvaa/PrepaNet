@@ -24,10 +24,4 @@ export const navData = [
     text: "Periodos",
     link: "/periodos"
   },
-  {
-    id: 3,
-    icon: <SensorDoorIcon />,
-    text: "Cerrar Sesion",
-    link: "/login"
-  }
 ]

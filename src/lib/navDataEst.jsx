@@ -18,10 +18,4 @@ export const navData = [
     text: "Inscripcion",
     link: "/inscripciones"
   },
-  {
-    id: 2,
-    icon: <SensorDoorIcon />,
-    text: "Cerrar Sesion",
-    link: "/login"
-  }
 ]

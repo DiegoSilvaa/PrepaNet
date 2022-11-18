@@ -10,7 +10,7 @@ import "/src/styles/App.css"
 import Stack from '@mui/material/Stack';
 import {useContext} from 'react';
 import { useSetState } from 'react-use';
-import { AuthContext } from '../context/Auth.context.jsx';
+import AuthContext from '../context/AuthContext';
 
 
 const initialState = {
@@ -21,25 +21,26 @@ const initialState = {
 export default function SignInSide() {
 
 
-  const { state: ContextState, login } = useContext(AuthContext);
+  const authCtx = useContext(AuthContext);
   const {
-    isLoginPending,
     isLoggedIn,
-    loginError
-  } = ContextState;
+    loginError,
+    isLoginPending 
+  } = authCtx;
   const [state, setState] = useSetState(initialState);
 
   const onSubmit = (e) => {
     e.preventDefault();
     const { email, password } = state;
-    login(email, password);
+    authCtx.login(email, password);
+    // login(email, password);
     setState({
       email: '',
       password: ''
     });
   }
 
-const renderErrorMessage = (name) => (
+const renderErrorMessage = () => (
   <div className="error">
     <Alert severity="error"> Password o Email incorrectos </Alert>
   </div>
@@ -92,9 +93,9 @@ const renderErrorMessage = (name) => (
                   value={state.password} 
                   placeholder="Password"
                   required  />
-                { isLoginPending && <div>Please wait...</div> }
-                { isLoggedIn && <div>Success.</div> }
-                { loginError && renderErrorMessage('pass')}
+                { authCtx.isLoginPending && <div>Please wait...</div> }
+                { authCtx.isLoggedIn && <div>Success.</div> }
+                { authCtx.loginError && renderErrorMessage()}
                 </div>
                 <div className="button-container">
                   <input type="submit" value="Entrar"/>

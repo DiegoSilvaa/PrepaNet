@@ -30,10 +30,4 @@ export const navData = [
     text: "Periodos",
     link: "/periodos"
   },
-  {
-    id: 4,
-    icon: <SensorDoorIcon />,
-    text: "Cerrar Sesion",
-    link: "/login"
-  }
 ]
