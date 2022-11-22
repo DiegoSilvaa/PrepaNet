@@ -10,57 +10,44 @@ import { useEffect, useState} from "react";
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import axios from 'axios'
-
+import {useContext} from "react";
+import AuthContext from '../context/AuthContext';
+import Alert from '@mui/material/Alert';
 const baseUrl = 'https://prepnet.uc.r.appspot.com/api/alumnos/curso-inscribir/';
-const baseUrl2 = 'https://prepnet.uc.r.appspot.com/api/alumnos/inscribir/';
+
 
 export default function Inscripcion() {
-const [token, isToken] = React.useState('');
-
+const authCTX = useContext(AuthContext);
 const [rowsAlumno, setIsRowsAlumno] = useState([]); 
 const [isSub, setIsSub] = useState(false);
+const [isSubError, setIsSubError] = useState(false);
+const [error, setError] = useState('');
 useEffect(() => {
-  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
-  { headers: {"Content-Type" : 'application/json'}})
-  .then(res=>{
-  //console.log(res.data);
-  axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": res.data.token}})
+  axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
     .then((response) => {
-      console.log(response.data)
-      //console.log(isSub);
+      //console.log(response.data)
       setIsRowsAlumno(response.data);
     })
     .catch(err =>{
-      console.log(err)
+      //console.log(err);
     })
     ;
-  })
-
-
 }, []);
 
 const handleRowClick = () => {
-
-  let token;
-
-  // console.log("hey")
-  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
-  { headers: {"Content-Type" : 'application/json'}})
-    .then(res=>{
-      console.log(res.data.token);
-      token = res.data.token
       axios.post('https://prepnet.uc.r.appspot.com/api/alumnos/inscribir/'+rowsAlumno.id+'/',{ }, {
         headers:{
-          'x-auth-token': token
+          'x-auth-token': authCTX.token
         }
       }).then(res=>{  
         setIsSub(true);
-        console.log(res)
+        //console.log(res)
       })
       .catch(err=>{
-        console.log(err)
+        //console.log(err.response.data)
+        setIsSubError(true);
+        setError(err.response.data)
       })
-    })
 };
 
   return (
@@ -129,6 +116,8 @@ const handleRowClick = () => {
         <CardActions>
       <Button size="small" onClick={() => handleRowClick()} > Inscribirte </Button>
     </CardActions>
+    {isSubError ? <Alert severity="error"> {error} </Alert> : <div></div>}
+    {isSub ? <Alert severity="success"> Inscrito </Alert> : <div></div>}
       </Card>
       </Box>
 

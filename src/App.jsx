@@ -19,7 +19,7 @@ import HomeCoor from "/src/Components/HomeCoor.jsx";
 import PeriodosCoor from "/src/Components/PeriodosCoor.jsx";
 
 // Estudiante
-
+import Perfil from "/src/Components/perfilAlumno.jsx";
 import HomeEst from "/src/Components/estudiante.jsx";
 import Inscripcion from "/src/Components/inscripcion.jsx";
 
@@ -68,6 +68,7 @@ function App(){
       <Route path="/login" element={<Navigate replace to="/home" />} />
       <Route path="/home" element={<HomeEst/>} />
       <Route path="/inscripciones" element={<Inscripcion />} />
+      <Route path="/perfil" element={<Perfil />} />
       <Route path='*' element={<ErrorPage/>} /> 
     </Routes>
     } else {

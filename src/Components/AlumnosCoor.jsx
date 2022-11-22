@@ -11,7 +11,7 @@ import {
 } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import Sidenav from '/src/Components/Sidenav.jsx';
+import Sidenav from '/src/Components/SidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
 
 const columnAlumno = 

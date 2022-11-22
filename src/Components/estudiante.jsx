@@ -8,25 +8,24 @@ import Typography from '@mui/material/Typography';
 import Sidenav from '/src/Components/sidenavEst.jsx';
 import { useEffect, useState} from "react";
 import axios from 'axios'
-
+import {useContext} from "react";
+import AuthContext from '../context/AuthContext';
 
 export default function DividerStack() {
-  
-const [token, isToken] = React.useState('');
+const authCTX = useContext(AuthContext);
 const baseUrl = 'https://prepnet.uc.r.appspot.com//api/alumnos/historial-cursos/';
 const [rowsAlumno, setIsRowsAlumno] = useState([]); 
 
 useEffect(() => {
-  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
-  { headers: {"Content-Type" : 'application/json'}})
-  .then(res=>{
-  //console.log(res.data);
-  axios.get(`${baseUrl}`, { headers: {"x-auth-token": res.data.token}})
+  axios.get(`${baseUrl}`, { headers: {"x-auth-token": authCTX.token}})
     .then((response) => {
-      console.log(response.data)
+      //console.log(response.data)
       setIsRowsAlumno(response.data);
-    });
-  })
+    })
+    .catch(err =>{
+      console.log(err)
+    })
+    ;
 }, []);
 
 function getColor(index){

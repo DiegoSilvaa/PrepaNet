@@ -18,4 +18,10 @@ export const navData = [
     text: "Inscripcion",
     link: "/inscripciones"
   },
+  {
+    id: 2,
+    icon: <PersonIcon />,
+    text: "Perfil",
+    link: "/perfil"
+  },
 ]
