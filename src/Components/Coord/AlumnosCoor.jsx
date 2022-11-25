@@ -4,47 +4,51 @@ import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import {
   DataGrid,
-  GridFooter,
-  useGridApiEventHandler,
-  useGridApiContext,
   GridToolbar,
 } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import Sidenav from '/src/Components/Sidenav.jsx';
+import Sidenav from '/src/Components/SidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
+import {useContext} from "react";
+import AuthContext from '/src/context/AuthContext';
 
 const columnAlumno = 
 [
-  { field: 'id', headerName: 'ID', width: 100 },
+  { field: 'id', headerName: 'ID', width: 50 },
   {
     field: 'nombre',
     headerName: 'Nombre',
-    width: 150,
+    width: 320,
+  },
+  {
+    field: 'orden',
+    headerName: 'Orden',
+    width: 100,
   },
   {
     field: 'estatus',
     headerName: 'Estatus',
-    width: 150,
+    width: 120,
   },
   {
     field: 'duracion',
     headerName: 'Duracion',
-    width: 150,
-  }
+    width: 80,
+  },
 ];
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 100, type: 'number', },
   { field: 'matricula', headerName: 'Matricula', width: 100, type: 'string',},
   {
-    field: 'firstName',
+    field: 'first_name',
     headerName: 'First name',
     width: 150,
     type: 'string'
   },
   {
-    field: 'lastName',
+    field: 'last_name',
     headerName: 'Last name',
     width: 150,
     type: 'string'
@@ -57,19 +61,7 @@ const columns = [
     type: 'string',
     width: 200,
     valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-  {
-    field: 'email',
-    type: 'string',
-    headerName: 'Email',
-    width: 110,
-  },
-  {
-    field: 'edad',
-    type: 'number',
-    headerName: 'Edad',
-    width: 110,
+      `${params.row.first_name || ''} ${params.row.last_name || ''}`,
   },
   {
     field: 'campus',
@@ -77,38 +69,41 @@ const columns = [
     filterable: false,
     headerName: 'Campus',
     width: 170,
-    valueFormatter: ({ value }) => value.name
-  },
-  {
-    field: 'taller',
-    headerName: 'Taller',
-    filterable: false,
-    width: 150,
-    type: 'string',
     valueFormatter: ({ value }) => value.nombre
-  },
+  }
 ];
 
 export default function Alumnos() {
-
+const authCTX = useContext(AuthContext);
 const [isRows, setIsRows] = useState([]);
 const [message, setMessage] = React.useState('');
-const [token, isToken] = React.useState('');
-const baseUrl = 'https://prepnet.uc.r.appspot.com/api/alumnos/historial-cursos/';
+const baseUrl = 'https://prepnet.uc.r.appspot.com/api/coords/alumnos/';
+const baseUrl2 = 'https://prepnet.uc.r.appspot.com/api/coords/alumno/';
 const [rowsAlumno, setIsRowsAlumno] = useState([]); 
 const [isSubmitted, setIsSubmitted] = useState(false);
+
+useEffect(() => {
+  axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
+    .then((response) => {
+      console.log(response.data)
+      setIsRows(response.data);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+    ;
+}, []);
+
 const handleRowClick = (params) => {
   setIsSubmitted(true);
-  setMessage(`${params.row.firstName || ''} ${params.row.lastName || ''} clicked`); 
-  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
-  { headers: {"Content-Type" : 'application/json'}})
-    .then(res=>{
-      console.log(res.data);
-      axios.get(`${baseUrl}`, { headers: {"x-auth-token": res.data.token}})
-        .then((response) => {
-          console.log(response.data)
-          setIsRowsAlumno(response.data);
-        });
+  setMessage(`${params.row.first_name || ''} ${params.row.last_name || ''} clicked`); 
+  axios.get(`${baseUrl2}${params.row.id}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
+    .then((response) => {
+      console.log(response.data);
+      setIsRowsAlumno(response.data.talleres);
+    })
+    .catch(err =>{
+      console.log(err);
     })
 };
 
@@ -121,7 +116,7 @@ const renderTable = (
     <DataGrid
       columns={columnAlumno}
       rows={rowsAlumno}
-      pageSize={5}
+      pageSize={6}
       rowsPerPageOptions={[15]}
       components={{
         Toolbar: GridToolbar
@@ -132,18 +127,6 @@ const renderTable = (
   </Box>
   </div>
 );
-
-useEffect(() => {
-  axios.get("https://prepnet.uc.r.appspot.com//api/alumnos/")
-    .then(res => {
-      //console.log(res)
-      setIsRows(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-},[]);
-
 
   return (
     <div className="Back">

@@ -2,14 +2,13 @@ import "/src/styles/Periodos.css"
 import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import ListSubheader from '@mui/material/ListSubheader';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar, GridLinkOperator } from '@mui/x-data-grid';
-import Sidenav from '/src/Components/sidenavCoor.jsx';
+import Sidenav from '../Sidenav'
 import Stack from '@mui/material/Stack';
 
 const ITEM_HEIGHT = 48;
@@ -72,6 +71,8 @@ export default function Statistics() {
   const [isRows, setRows] = React.useState([rows]);
   const [fin, setFin] = React.useState('');
   const [inicio, setInicio] = React.useState('');
+
+  
   const handleChangeInicio = (event) => {
     setInicio(event.target.value);
     //console.log(inicio);

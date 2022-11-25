@@ -1,8 +1,4 @@
 import React from 'react';
-import Alumnos from "/src/Components/Alumnos.jsx";
-import Home from "/src/Components/Home.jsx";
-import Periodos from "/src/Components/Periodos.jsx";
-import Coordinadores from "/src/Components/Coordinadores.jsx"
 import ErrorPage from './Pages/404';
 import {useContext} from "react";
 import { Navigate } from "react-router-dom";
@@ -12,16 +8,25 @@ import {
   } from "react-router-dom";
 import Login from './Pages/log';
 import AuthContext from './context/AuthContext';
+// Administrador 
+
+import Alumnos from "/src/Components/Admin/Alumnos.jsx";
+import Home from "/src/Components/Admin/Home.jsx";
+import Periodos from "/src/Components/Admin/Periodos.jsx";
+import Coordinadores from "/src/Components/Admin/Coordinadores.jsx"
+import Reporte from "/src/Components/ADmin/ReporteAdmin.jsx";
+
 // Coordinador
 
-import AlumnosCoor from "/src/Components/AlumnosCoor.jsx";
-import HomeCoor from "/src/Components/HomeCoor.jsx";
-import PeriodosCoor from "/src/Components/PeriodosCoor.jsx";
+import AlumnosCoor from "/src/Components/Coord/AlumnosCoor.jsx";
+import HomeCoor from "/src/Components/Coord/HomeCoor.jsx";
+import PeriodosCoor from "/src/Components/Coord/PeriodosCoor.jsx";
+import ReporteCoor from "/src/Components/Coord/ReporteCoor.jsx";
 
 // Estudiante
-import Perfil from "/src/Components/perfilAlumno.jsx";
-import HomeEst from "/src/Components/estudiante.jsx";
-import Inscripcion from "/src/Components/inscripcion.jsx";
+import Perfil from "/src/Components/Alumno/perfilAlumno.jsx";
+import HomeEst from "/src/Components/Alumno/estudiante.jsx";
+import Inscripcion from "/src/Components/Alumno/inscripcion.jsx";
 
 function App(){
   const authCTX = useContext(AuthContext);
@@ -49,6 +54,7 @@ function App(){
       <Route path="/alumnos" element={<Alumnos />} />
       <Route path="/coordinadores" element={<Coordinadores />} />
       <Route path="/periodos" element={<Periodos />} />
+      <Route path="/reporte" element={<Reporte />} />
       <Route path='*' element={<ErrorPage/>} /> 
     </Routes>
     }
@@ -59,6 +65,7 @@ function App(){
       <Route path="/home" element={<HomeCoor/>} />
       <Route path="/alumnos" element={<AlumnosCoor />} />
       <Route path="/periodos" element={<PeriodosCoor />} />
+      <Route path="/reporte" element={<ReporteCoor />} />
       <Route path='*' element={<ErrorPage/>} /> 
     </Routes>
     }

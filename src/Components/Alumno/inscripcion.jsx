@@ -11,7 +11,7 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import axios from 'axios'
 import {useContext} from "react";
-import AuthContext from '../context/AuthContext';
+import AuthContext from '/src/context/AuthContext';
 import Alert from '@mui/material/Alert';
 const baseUrl = 'https://prepnet.uc.r.appspot.com/api/alumnos/curso-inscribir/';
 

@@ -2,16 +2,18 @@ import "/src/styles/Periodos.css"
 import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import ListSubheader from '@mui/material/ListSubheader';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar, GridLinkOperator } from '@mui/x-data-grid';
-import Sidenav from './Sidenav'
+import { DataGrid, GridToolbar} from '@mui/x-data-grid';
+import Sidenav from '/src/Components/sidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
-
+import {useContext} from "react";
+import AuthContext from '/src/context/AuthContext';
+import { useEffect } from "react";
+import axios from 'axios'
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -29,51 +31,45 @@ const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
   {
-    field: 'periodoInicio',
-    headerName: 'Inicio del Periodo',
-    width: 140,
-  },
-  {
-    field: 'periodoFin',
-    headerName: 'Fin del Periodo',
-    width: 140,
-  },
-  {
-    field: 'iniFin',
+    field: 'nombre',
     headerName: 'Periodo',
+    width: 140,
+  },
+  {
+    field: 'isActive',
+    headerName: 'Activo',
     sortable: false,
     width: 110,
-    valueGetter: (params) =>
-      `${params.row.periodoInicio || ''} - ${params.row.periodoFin || ''}`,
   },
   {
-    field: 'campus',
-    headerName: 'Campus',
-    width: 150,
-  },
-    {
-    field: 'cursos',
-    headerName: 'Taller',
-    width: 110,
-  },
-    {
-    field: 'clave',
-    headerName: 'Clave',
-    width: 100,
+    field: 'createdAt',
+    headerName: 'Fecha de creacion',
+    width: 200,
   },
 ];
 
-const rows = [
-  {id: 1, periodoInicio: "Dic", periodoFin:"Ago", campus:"Campus Monterrey", cursos:"Taller_1", clave:"Mty_1"},
-]
-
 
 export default function Statistics() {
-  const [isRows, setRows] = React.useState([rows]);
+  const authCTX = useContext(AuthContext);
+  const [isRows, setRows] = React.useState([]);
   const [fin, setFin] = React.useState('');
   const [inicio, setInicio] = React.useState('');
+  const baseUrl = 'https://prepnet.uc.r.appspot.com/api/coords/periods/';
+  const baseUrl2 = 'https://prepnet.uc.r.appspot.com/api/coords/current-period/';
 
-  
+
+  useEffect(() => {
+    axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
+      .then((response) => {
+        console.log(response.data)
+        setRows(response.data);
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+      ;
+  }, []);
+
   const handleChangeInicio = (event) => {
     setInicio(event.target.value);
     //console.log(inicio);
@@ -84,12 +80,16 @@ export default function Statistics() {
     //console.log(fin);
   };
 
+  const handleUpdateAllRows = (e) => {
+
+  };
+
 
   return (
     <div className="Back">
         <div className="TopBar">
         </div>
-        <Stack direction="row" spacing={28}>
+        <Stack direction="row" spacing={45}>
     <Sidenav/>
         <div className="allCharts">
         <Stack direction="row" spacing={5} mt={2}>
@@ -126,17 +126,13 @@ export default function Statistics() {
         </div>
         <div className="Form_1">
           <Button variant="contained" endIcon={<SendIcon />} 
-          onClick={() => { 
-            handleUpdateAllRows
-          }}>
-            Send
-          </Button>
+          onClick={() => {handleUpdateAllRows}}> Send </Button>
         </div>
       </div>
       <div className="tableStatsP">
-        <Box sx={{ pt: 4, pl: 3, height: '90%', width: '95%' }}>
+        <Box sx={{ pt: 4, pl: 3, height: '90%', width: '90%' }}>
           <DataGrid
-            rows={rows}
+            rows={isRows}
             columns={columns}
             pageSize={15}
             rowsPerPageOptions={[15]}

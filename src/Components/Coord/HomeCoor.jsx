@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "/src/styles/Home.css"
 import Chart from "react-apexcharts";
-import Sidenav from '/src/Components/sidenavCoor.jsx';
+import Sidenav from '/src/Components/SidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 class App extends Component {
@@ -13,7 +13,7 @@ this.state = {
     chart: {
       id: "basic-bar"
     },
-    colors: ['#93C3EE'],
+    colors: ['#189de4'],
     xaxis: {
       categories: ["Campus Mty","Campus Mty", "Campus Mty", "Campus Mty", "Campus Mty", "Campus Mty", "Campus Mty"]
     },
@@ -40,7 +40,7 @@ this.state2 = {
     title: {
       text: 'Alumnos por Genero'
     },
-    colors: ['#93C3EE', '#E5C6A0'],
+    colors: ['#189de4', '#46648c'],
     labels: ['Hombres', 'Mujeres'],
     responsive: [{
       breakpoint: 480,
@@ -83,7 +83,7 @@ this.state2 = {
                 height: 350,
                 stacked: true,
               },
-              colors: ['#93C3EE', '#E5C6A0', '#669DB5', '#94A74A'],
+              colors: ['#189de4', '#46648c', '#52b7e9', '#146ca4','#16d4fb','#0885fa'],
               plotOptions: {
                 bar: {
                   horizontal: true,
@@ -133,7 +133,7 @@ this.state2 = {
               title: {
                 text: 'Talleres Totales por Campus'
               },
-              colors: ['#93C3EE', '#E5C6A0', '#669DB5', '#94A74A'],
+              colors: ['#189de4', '#46648c', '#52b7e9', '#146ca4','#16d4fb','#0885fa'],
               labels: ['Taller_1', 'Taller_2','Taller_3','Taller_4','Taller_5','Taller_6'],
               responsive: [{
                 breakpoint: 480,
@@ -164,7 +164,7 @@ this.state2 = {
           <Stack spacing={2}>
           <Box
             sx={{
-            mt: 1,
+            mt: 2,
             width: 450,
             height: 290,
             backgroundColor: 'white',
@@ -201,7 +201,7 @@ this.state2 = {
           <Stack spacing={2}>
           <Box
             sx={{
-            mt: 1,
+            mt: 2,
             width: 700,
             height: 290,
             backgroundColor: 'white',

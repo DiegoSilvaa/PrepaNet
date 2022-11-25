@@ -9,7 +9,7 @@ import { useEffect, useState} from "react";
 import CardHeader from '@mui/material/CardHeader';
 import axios from 'axios'
 import {useContext} from "react";
-import AuthContext from '../context/AuthContext';
+import AuthContext from '/src/context/AuthContext';
 const baseUrl = 'https://prepnet.uc.r.appspot.com/api/alumnos/profile/';
 
 export default function Statistics() {

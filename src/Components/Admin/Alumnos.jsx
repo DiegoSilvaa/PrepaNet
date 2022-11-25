@@ -11,8 +11,10 @@ import {
 } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import Sidenav from '/src/Components/SidenavCoor.jsx';
+import Sidenav from '/src/Components/Sidenav.jsx';
 import Stack from '@mui/material/Stack';
+import {useContext} from "react";
+import AuthContext from '/src/context/AuthContext';
 
 const columnAlumno = 
 [
@@ -26,43 +28,55 @@ const columnAlumno =
     field: 'estatus',
     headerName: 'Estatus',
     width: 150,
+  },
+  {
+    field: 'duracion',
+    headerName: 'Duracion',
+    width: 150,
   }
 ];
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 100 },
-  { field: 'matricula', headerName: 'Matricula', width: 100 },
+  { field: 'id', headerName: 'ID', width: 100, type: 'number', },
+  { field: 'matricula', headerName: 'Matricula', width: 100, type: 'string',},
   {
     field: 'firstName',
     headerName: 'First name',
     width: 150,
+    type: 'string'
   },
   {
     field: 'lastName',
     headerName: 'Last name',
     width: 150,
+    type: 'string'
   },
   {
     field: 'fullName',
     headerName: 'Full name',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
+    type: 'string',
     width: 200,
     valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
   {
     field: 'email',
+    type: 'string',
     headerName: 'Email',
     width: 110,
   },
   {
     field: 'edad',
+    type: 'number',
     headerName: 'Edad',
     width: 110,
   },
   {
     field: 'campus',
+    type: 'string',
+    filterable: false,
     headerName: 'Campus',
     width: 170,
     valueFormatter: ({ value }) => value.name
@@ -70,23 +84,37 @@ const columns = [
   {
     field: 'taller',
     headerName: 'Taller',
+    filterable: false,
     width: 150,
+    type: 'string',
     valueFormatter: ({ value }) => value.nombre
   },
 ];
 
 export default function Alumnos() {
-
+const authCTX = useContext(AuthContext);
 const [isRows, setIsRows] = useState([]);
 const [message, setMessage] = React.useState('');
-const [token, isToken] = React.useState('');
-const baseUrl = 'https://prepanet-366500.wl.r.appspot.com/api/alumnos/historial-cursos/';
+const baseUrl = 'https://prepnet.uc.r.appspot.com/api/coords/alumnos/';
 const [rowsAlumno, setIsRowsAlumno] = useState([]); 
 const [isSubmitted, setIsSubmitted] = useState(false);
+
+useEffect(() => {
+  axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
+    .then((response) => {
+      console.log(response.data)
+      setIsRows(response.data);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+    ;
+}, []);
+
 const handleRowClick = (params) => {
   setIsSubmitted(true);
-  setMessage(`${params.row.firstName || ''} ${params.row.lastName || ''}" clicked`); 
-  axios.post('https://prepanet-366500.wl.r.appspot.com/api/auth/generate-token/', {email: "Bettye_Willms@tec.mx", password: '1234'},
+  setMessage(`${params.row.firstName || ''} ${params.row.lastName || ''} clicked`); 
+  axios.post('https://prepnet.uc.r.appspot.com/api/auth/generate-token/', {email: "Jackson_Stiedemann53@tec.mx", password: '1234'},
   { headers: {"Content-Type" : 'application/json'}})
     .then(res=>{
       console.log(res.data);
@@ -119,18 +147,6 @@ const renderTable = (
   </div>
 );
 
-useEffect(() => {
-  axios.get("https://prepanet-366500.wl.r.appspot.com/api/alumnos/")
-    .then(res => {
-      //console.log(res)
-      setIsRows(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-},[]);
-
-    
   return (
     <div className="Back">
         <div className="TopBar">
@@ -140,7 +156,7 @@ useEffect(() => {
         <div className="allCharts">
           <Stack direction="row" spacing={5} mt={2}>
           <div className="tableSett">
-            <Box sx={{ pt: 4, pl: 3, height: '90%', width: '95%' }}>
+            <Box sx={{ pt: 4, pl: 2, height: '90%', width: '95%' }}>
               <DataGrid
                 rows={isRows}
                 columns={columns}

@@ -9,7 +9,7 @@ import Sidenav from '/src/Components/sidenavEst.jsx';
 import { useEffect, useState} from "react";
 import axios from 'axios'
 import {useContext} from "react";
-import AuthContext from '../context/AuthContext';
+import AuthContext from '/src/context/AuthContext';
 
 export default function DividerStack() {
 const authCTX = useContext(AuthContext);
