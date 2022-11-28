@@ -4,14 +4,20 @@ import Chart from "react-apexcharts";
 import Sidenav from '/src/Components/Sidenav.jsx';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 class App extends Component {
+
+  //https://apexcharts.com/docs/update-charts-from-json-api-ajax/
+
   constructor(props) {
     super(props);
 
 this.state = {
   options: {
     chart: {
-      id: "basic-bar"
+      id: "basic-bar",
+      redrawOnWindowResize: true,
+      redrawOnParentResize: true,
     },
     colors: ['#189de4'],
     xaxis: {
@@ -36,6 +42,8 @@ this.state2 = {
     chart: {
       width: 380,
       type: 'pie',
+      redrawOnWindowResize: true,
+      redrawOnParentResize: true,
     },
     title: {
       text: 'Alumnos por Genero'
@@ -82,6 +90,8 @@ this.state2 = {
                 type: 'bar',
                 height: 350,
                 stacked: true,
+                redrawOnWindowResize: true,
+                redrawOnParentResize: true,
               },
               colors: ['#189de4', '#46648c', '#52b7e9', '#146ca4','#16d4fb','#0885fa'],
               plotOptions: {
@@ -119,7 +129,7 @@ this.state2 = {
                 position: 'top',
                 horizontalAlign: 'center',
                 offsetX: 40
-              }
+              },
             },   
           };
 
@@ -129,6 +139,8 @@ this.state2 = {
             options: {
               chart: {
                 type: 'donut',
+                redrawOnWindowResize: true,
+                redrawOnParentResize: true,
               },
               title: {
                 text: 'Talleres Totales por Campus'
@@ -139,7 +151,9 @@ this.state2 = {
                 breakpoint: 480,
                 options: {
                   chart: {
-                    width: 200
+                    width: 200,
+                    redrawOnWindowResize: true,
+                    redrawOnParentResize: true,
                   },
                   legend: {
                     position: 'bottom'
@@ -154,86 +168,36 @@ this.state2 = {
   render() {
     return (
       <div className="Back">
-        <div className="TopBar">
-        </div>
-        <Sidenav />
-        <Stack direction="row" spacing={25}>
+        <Stack direction="row" spacing={'17%'}>
     <Sidenav/>
         <div className="allCharts">
-        <Stack direction="row" spacing={2}>
-          <Stack spacing={2}>
-          <Box
-            sx={{
-            mt: 2,
-            width: 450,
-            height: 290,
-            backgroundColor: 'white',
-            borderRadius: '1%',
-            border: 1,
-          }}>
-        <Chart
-          id="chartr"
-          options={this.state2.options}
-          series={this.state2.series}
-          type="pie"
-          height="280"
-          width="400"
-        />
-        </Box>
-            <Box
-              sx={{
-              width: 450,
-              height: 290,
-              backgroundColor: 'white',
-              borderRadius: '1%',
-              border: 1,
-            }}>
-            <Chart
-              id="chartr"
-              options={this.state4.options}
-              series={this.state4.series}
-              type="donut"
-              height="280"
-              width="400"
-            />
+        <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+          <Typography variant="h5"> Dashbord de Admin </Typography> 
+          </Box>
+        <Stack direction="row" spacing={5}>
+          <Stack spacing={0}>
+            <div className="chart1">
+              <Box sx={{mt: 2,width: "100%",height: "80%",backgroundColor: 'white',borderRadius: '1%',border: 1}}>
+                <Chart id="chartr" options={this.state2.options} series={this.state2.series} type="pie" height="100%" width="100%"/>
             </Box>
+          </div>
+          <div className="chart1">
+              <Box sx={{width: "100%", height: "80%", backgroundColor: 'white', borderRadius: '1%', border: 1}}>
+                <Chart id="chartr" options={this.state4.options} series={this.state4.series} type="donut" height="100%" width="100%"/>
+              </Box>
+          </div>
           </Stack>
-          <Stack spacing={2}>
-          <Box
-            sx={{
-            mt: 2,
-            width: 700,
-            height: 290,
-            backgroundColor: 'white',
-            borderRadius: '1%',
-            border: 1,
-          }}>
-            <Chart
-              id="chartl"
-              options={this.state.options}
-              series={this.state.series}
-              type="bar"
-              height="280"
-              width="670"
-            />
+          <Stack spacing={0}>
+          <div className="chart2">
+          <Box sx={{ mt: 2, width: "100%", height: "80%", backgroundColor: 'white', borderRadius: '1%', border: 1}}>
+            <Chart id="chartl" options={this.state.options} series={this.state.series} type="bar" height="100%" width="100%"/>
           </Box>
-          <Box
-            sx={{
-              width: 700,
-              height: 290,
-              backgroundColor: 'white',
-              borderRadius: '1%',
-              border: 1,
-            }}>
-            <Chart
-              id="chartl"
-              options={this.state3.options}
-              series={this.state3.series}
-              type="bar"
-              height="280"
-              width="670"
-            />
+          </div>
+          <div className="chart2">
+          <Box sx={{ width: "100%", height: "80%", backgroundColor: 'white', borderRadius: '1%', border: 1}}>
+            <Chart id="chartl" options={this.state3.options} series={this.state3.series} type="bar" height="100%" width="100%"/>
           </Box>
+          </div>
           </Stack>
           </Stack>
           </div>

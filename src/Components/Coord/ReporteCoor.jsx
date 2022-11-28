@@ -51,39 +51,30 @@ export default function DividerStack() {
         if (val === "Liderazgo Positivo y Transformación Personal") {
           return './src/public/lide1.jpeg'
         }
-        else if (val === 'Cursando') {
+        else if (val === 'Mis habilidades y motivaciones') {
+          return './src/public/motivaciones.png'
+        }
+        else if (val === 'Mis emociones') {
           return './src/public/emociones.jpg'
         }
-        else if (val === 'Aprobado') {
+        else if (val === 'Mis relaciones') {
           return './src/public/relaciones.jpg'
-        }
-        else if (val === 'Reprobado') {
+        } 
+        else if (val ==='Mis áreas de oportunidad') {
           return './src/public/areas.jpg'
         } 
-        else if (val ==='hola') {
-          return './src/public/metas.jpg'
-        } 
-        else if (val === 'hola2') {
-            return './src/public/lide1.jpeg'
+        else if (val === 'Mis metas') {
+            return './src/public/metas.jpg'
         }
       };
     
-    const arrayChunk = (arr, n) => {
-    const array = arr.slice();
-    const chunks = [];
-    while (array.length) chunks.push(array.splice(0, n));
-    return chunks;
-    };
-
     return (
         <div className="Back">
-        <div className="TopBar">
-        </div>
         <Stack direction="row" spacing={30}>
     <Sidenav/>
         <Stack spacing={5}>
         {isRows.map(item => {
-            return <Card sx={
+            return <Card key={item.matricula} sx={
                 { maxWidth: 345,
                   backgroundColor: getColor(item.estatus),
                   marginTop: 4}}>

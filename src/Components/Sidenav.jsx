@@ -20,7 +20,7 @@ export default function Sidenav() {
       id: 4,
       icon: <SensorDoorIcon />,
       text: "Cerrar Sesion",
-      link: "/login"
+      link: "/logout"
   };
   return (
       <div className={styles.sidenav}>
@@ -35,7 +35,7 @@ export default function Sidenav() {
 
         <NavLink key={cerrarSe.id} className={styles.sideitem} to={cerrarSe.link}>
             {cerrarSe.icon}
-          <span className={styles.linkText} onClick={onLogout}> {cerrarSe.text} </span>
+          <span className={styles.linkText}> {cerrarSe.text} </span>
           </NavLink>
       </div>
   )

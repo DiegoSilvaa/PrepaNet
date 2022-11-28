@@ -94,7 +94,6 @@ const AuthContextProvider = props => {
     sessionStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('userInfo');
     sessionStorage.removeItem('loginError');
-    navigate("/login");
   }
 
   return (

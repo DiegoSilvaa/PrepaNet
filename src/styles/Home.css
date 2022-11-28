@@ -1,58 +1,21 @@
 .allCharts{
+  margin-top: 5%;
   padding: 1px 16px;
   padding-bottom: 15px;
-  width: 100%;
+  width: 80%;
   height: 100%;
-}
-
-.Chart-top-right{
-  background: white;
-  border-radius: 30px;
-  width: 500px;
+  border-radius: 10px;
   text-align: center;
-  height: 290px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  justify-content: center;
 }
 
-.Chart-top-left {
-  text-align: center;
-  background: white;
-  border-radius: 30px;
-  width: 700px;
-  height: 290px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.chart1 {
+  width: 22rem;
+  height: 22rem;
 }
 
-.Chart-bottom-left{
-  text-align: center;
-  background: white;
-  border-radius: 30px;
-  width: 700px;
-  height: 290px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.chart2 {
+  width: 50rem;
+  height: 22rem;
 }
 
-.Chart-bottom-right{
-  text-align: center;
-  background: white;
-  border-radius: 30px;
-  width: 500px;
-  height: 290px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#chartl{
-  position: relative;
-  top:55%;
-  left: 52%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-#chartr{
-  position: relative;
-  top:50%;
-  left: 60%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}

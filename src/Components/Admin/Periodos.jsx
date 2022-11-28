@@ -7,146 +7,138 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar, GridLinkOperator } from '@mui/x-data-grid';
-import Sidenav from '../Sidenav'
+import { DataGrid, GridToolbar} from '@mui/x-data-grid';
+import Sidenav from '/src/Components/Sidenav.jsx';
 import Stack from '@mui/material/Stack';
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+import {useContext} from "react";
+import AuthContext from '/src/context/AuthContext';
+import { useEffect } from "react";
+import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import Typography from '@mui/material/Typography';
 
 const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
+
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
   {
-    field: 'periodoInicio',
-    headerName: 'Inicio del Periodo',
-    width: 140,
-  },
-  {
-    field: 'periodoFin',
-    headerName: 'Fin del Periodo',
-    width: 140,
-  },
-  {
-    field: 'iniFin',
+    field: 'nombre',
     headerName: 'Periodo',
+    width: 140,
+  },
+  {
+    field: 'isActive',
+    headerName: 'Activo',
+    type: 'boolean',
     sortable: false,
     width: 110,
-    valueGetter: (params) =>
-      `${params.row.periodoInicio || ''} - ${params.row.periodoFin || ''}`,
   },
   {
-    field: 'campus',
-    headerName: 'Campus',
-    width: 150,
-  },
-    {
-    field: 'cursos',
-    headerName: 'Taller',
-    width: 110,
-  },
-    {
-    field: 'clave',
-    headerName: 'Clave',
-    width: 100,
+    field: 'createdAt',
+    type: 'dateTime',
+    headerName: 'Fecha de creacion',
+    width: 200,
   },
 ];
 
-const rows = [
-  {id: 1, periodoInicio: "Dic", periodoFin:"Ago", campus:"Campus Monterrey", cursos:"Taller_1", clave:"Mty_1"},
-]
-
 
 export default function Statistics() {
-  const [isRows, setRows] = React.useState([rows]);
+  const authCTX = useContext(AuthContext);
+  const [isRows, setRows] = React.useState([]);
   const [fin, setFin] = React.useState('');
   const [inicio, setInicio] = React.useState('');
+  const [error, setError] = React.useState(false);
+  const baseUrl = 'https://prepnet.uc.r.appspot.com/api/admin/periods/';
 
-  
+
+  useEffect(() => {
+    axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
+      .then((response) => {
+        console.log(response.data)
+        setRows(response.data);
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+      ;
+  }, []);
+
   const handleChangeInicio = (event) => {
     setInicio(event.target.value);
-    //console.log(inicio);
   };
 
   const handleChangeFin = (event) => {
     setFin(event.target.value);
-    //console.log(fin);
+  };
+
+  const handleUpdateAllRows = (e) => {
+    if (inicio && fin) {
+    axios.post('https://prepnet.uc.r.appspot.com/api/admin/add-period/',
+    {nombre: `${inicio}-${fin}`}, {
+        headers:{
+          'x-auth-token': authCTX.token
+        }
+      }).then(res=>{  
+        console.log(res)
+      })
+      .catch(err=>{
+        console.log(err.response.data)
+      })
+    } else {
+      setError(true);
+    }
   };
 
 
   return (
     <div className="Back">
-        <div className="TopBar">
-        </div>
-        <Stack direction="row" spacing={28}>
+        <Stack direction="row" spacing={"16%"}>
     <Sidenav/>
         <div className="allCharts">
-        <Stack direction="row" spacing={5} mt={2}>
-      <div className="tableSettP">
-        <div className="title2">
-          <b>Agregar Periodos</b>
+        <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+          <Typography variant="h5"> Lista de Periodos </Typography> 
+          </Box>
+        <Stack direction="row" spacing={5} mt={2} ml={'11%'}>
+        <div className="tableSettP">
+          <Stack spacing={4} direction="column" alignItems="center" justifyContent="center">
+          <Typography variant="h5"> Agregar Periodos </Typography> 
+            <p> <strong>Inicio </strong> y <strong>Fin</strong> de periodo. </p>
+            <FormControl sx={{   width: "50%"}}>
+              <InputLabel htmlFor="grouped-native-select">Inicio</InputLabel>
+              <Select defaultValue="" id="grouped-select" label="Grouping" onChange={handleChangeInicio}>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {meses.map((name) => (
+                  <MenuItem key={name} value={name}>{name} </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: "50%" }}>
+              <InputLabel htmlFor="grouped-select">Fin</InputLabel>
+              <Select defaultValue="" id="grouped-select" label="Grouping" onChange={handleChangeFin}>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {meses.map((name) => (
+                  <MenuItem key={name} value={name}> {name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button variant="contained" endIcon={<SendIcon />} 
+            onClick={() => handleUpdateAllRows()}  sx={{width: "50%"}}> Send </Button>
+            {error ? <Alert severity="error"> Selecciona los meses </Alert> : <div></div>}
+            </Stack>
+            </div>
+        <div className="tableStatsP">
+          <Box sx={{ pt: 4, pl: 3, height: '90%', width: '90%' }}>
+            <DataGrid rows={isRows} columns={columns} pageSize={15} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}}/>
+          </Box>
         </div>
-        <div className="InfoStats">
-          <p> <strong>Inicio </strong> y <strong>Fin</strong> de periodo. </p>
-        </div>
-        <div className="Form_1">
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel htmlFor="grouped-native-select">Inicio</InputLabel>
-            <Select defaultValue="" id="grouped-select" label="Grouping" onChange={handleChangeInicio}>
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {meses.map((name) => (
-                <MenuItem key={name} value={name}>{name} </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel htmlFor="grouped-select">Fin</InputLabel>
-            <Select defaultValue="" id="grouped-select" label="Grouping" onChange={handleChangeFin}>
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {meses.map((name) => (
-                <MenuItem key={name} value={name}> {name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-        <div className="Form_1">
-          <Button variant="contained" endIcon={<SendIcon />} 
-          onClick={() => { 
-            handleUpdateAllRows
-          }}>
-            Send
-          </Button>
-        </div>
+        </Stack>
       </div>
-      <div className="tableStatsP">
-        <Box sx={{ pt: 4, pl: 3, height: '90%', width: '95%' }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={15}
-            rowsPerPageOptions={[15]}
-            components={{
-              Toolbar: GridToolbar,
-            }}
-          />
-        </Box>
-      </div>
-      </Stack>
-    </div>
     </Stack>
     </div>
   )

@@ -8,6 +8,8 @@ import {
   } from "react-router-dom";
 import Login from './Pages/log';
 import AuthContext from './context/AuthContext';
+import Logout from '/src/Components/LogOut.jsx'
+
 // Administrador 
 
 import Alumnos from "/src/Components/Admin/Alumnos.jsx";
@@ -39,10 +41,11 @@ function App(){
     routes = <Routes>
         {<Route path="/" element={<Navigate replace to="/login"/>} />}
         {<Route path="/login" element={<Login/>} />}
-        {<Route path="/home" element={<Login/>} />}
-        {<Route path="/alumnos" element={<Login/>} />}
-        {<Route path="/coordinadores" element={<Login/>} />}
-        {<Route path="/periodos" element={<Login/>} />}
+        {<Route path="/home" element={<Navigate replace to="/login"/>} />}
+        {<Route path="/alumnos" element={<Navigate replace to="/login"/>} />}
+        {<Route path="/coordinadores" element={<Navigate replace to="/login"/>} />}
+        {<Route path="/periodos" element={<Navigate replace to="/login"/>} />}
+        {<Route path="/logout" element={<Navigate replace to="/login"/>} />}
         <Route path='*' element={<ErrorPage/>} />
     </Routes>
   } else {
@@ -54,7 +57,8 @@ function App(){
       <Route path="/alumnos" element={<Alumnos />} />
       <Route path="/coordinadores" element={<Coordinadores />} />
       <Route path="/periodos" element={<Periodos />} />
-      <Route path="/reporte" element={<Reporte />} />
+      <Route path="/reporte" element={<Reporte />} /> 
+      <Route path="/logout" element={<Logout/>} />
       <Route path='*' element={<ErrorPage/>} /> 
     </Routes>
     }
@@ -66,6 +70,7 @@ function App(){
       <Route path="/alumnos" element={<AlumnosCoor />} />
       <Route path="/periodos" element={<PeriodosCoor />} />
       <Route path="/reporte" element={<ReporteCoor />} />
+      <Route path="/logout" element={<Logout/>} />
       <Route path='*' element={<ErrorPage/>} /> 
     </Routes>
     }
@@ -76,7 +81,8 @@ function App(){
       <Route path="/home" element={<HomeEst/>} />
       <Route path="/inscripciones" element={<Inscripcion />} />
       <Route path="/perfil" element={<Perfil />} />
-      <Route path='*' element={<ErrorPage/>} /> 
+      <Route path="/logout" element={<Logout/>} />
+      <Route path='*' element={<ErrorPage/>} />
     </Routes>
     } else {
       <Route path='*' element={<ErrorPage/>} /> 

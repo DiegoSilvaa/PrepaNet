@@ -10,6 +10,7 @@ import { useEffect, useState} from "react";
 import axios from 'axios'
 import {useContext} from "react";
 import AuthContext from '/src/context/AuthContext';
+import Box from '@mui/material/Box';
 
 export default function DividerStack() {
 const authCTX = useContext(AuthContext);
@@ -49,27 +50,15 @@ function getColor(index){
 
   return (
     <div className="Back">
-        <div className="TopBar">
-        </div>
-    <Stack direction="row" spacing={35}>
-    <Sidenav/>  
-    <Stack spacing={2}>
-        <Stack 
-          direction="row"
-          divider={<Divider orientation="vertical" flexItem />}
-          spacing={2}
-          mt={2}
-          mb={2}
-        >
-      <Card sx={
-        { maxWidth: 345,
-          backgroundColor: getColor(0), }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image="./src/public/lide1.jpeg"
-        />
+        <Stack direction="row" spacing={"16%"}>
+    <Sidenav/>
+    <Stack direction="column" alignItems="center" justifyContent="center">
+      <Box sx={{height: '10%', width:'95%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+        <Typography variant="h5"> Lista de Periodos </Typography> 
+      </Box>
+    <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2} mt={1} ml={3}>
+      <Card sx={{ width: '30%',height: '95%', backgroundColor: getColor(0), }}>
+        <CardMedia component="img" alt="green iguana" height="140" image="./src/public/lide1.jpeg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {rowsAlumno[0]?.nombre || "Not loaded yet"}
@@ -80,15 +69,8 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={
-        { maxWidth: 345,
-          backgroundColor: getColor(1), }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image="./src/public/lide1.jpeg"
-        />
+      <Card sx={{ width: '30%', height: '95%', backgroundColor: getColor(1), }}>
+        <CardMedia component="img"alt="green iguana"height="140"image="./src/public/motivaciones.png"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
           {rowsAlumno[1]?.nombre || "Not loaded yet"}
@@ -99,15 +81,8 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={
-        { maxWidth: 345,
-          backgroundColor: getColor(2), }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image="./src/public/emociones.jpg"
-        />
+      <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(2), }}>
+        <CardMedia component="img"alt="green iguana"height="140"image="./src/public/emociones.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
           {rowsAlumno[2]?.nombre || "Not loaded yet"}
@@ -119,22 +94,9 @@ function getColor(index){
       </Card>
         </Stack>
   
-        <Stack
-          direction="row"
-          divider={<Divider orientation="vertical" flexItem />}
-          spacing={2}
-          paddingBottom={5}
-        >
-  
-  <Card sx={
-        { maxWidth: 345,
-          backgroundColor: getColor(3), }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image="./src/public/relaciones.jpg"
-        />
+        <Stack direction="row"divider={<Divider orientation="vertical" flexItem />}spacing={2} ml={3}>
+          <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(3), }}>
+        <CardMedia component="img"alt="green iguana"height="140"image="./src/public/relaciones.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
           {rowsAlumno[3]?.nombre || "Not loaded yet"}
@@ -145,15 +107,8 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={
-        { maxWidth: 345,
-          backgroundColor: getColor(4), }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image="./src/public/areas.jpg"
-        />
+      <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(4), }}>
+        <CardMedia component="img"alt="green iguana"height="140"image="./src/public/areas.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
           {rowsAlumno[4]?.nombre || "Not loaded yet"}
@@ -164,15 +119,8 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={
-        { maxWidth: 345,
-          backgroundColor: getColor(5), }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image="./src/public/metas.jpg"
-        />
+      <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(5), }}>
+        <CardMedia component="img"alt="green iguana"height="140"image="./src/public/metas.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
           {rowsAlumno[5]?.nombre || "Not loaded yet"}

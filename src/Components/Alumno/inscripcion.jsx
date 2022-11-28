@@ -52,8 +52,6 @@ const handleRowClick = () => {
 
   return (
     <div className="Back">
-        <div className="TopBar">
-        </div>
         <Stack direction="row" spacing={43}>
     <Sidenav/>
       <Stack
@@ -61,50 +59,19 @@ const handleRowClick = () => {
         paddingBottom={5}>
     
     <Box
-    sx={{
-        mt: 2,
-        width: 1000,
-        height: 590,
-        backgroundColor: 'white',
-        borderRadius: '1%',
-        display: 'flex', 
-        justifyContent: 'center',
-      }}>
+    sx={{mt: 2,width: 1000,height: 590,backgroundColor: 'white',borderRadius: '1%',display: 'flex', justifyContent: 'center',}}>
     <Stack spacing={2}>
         <Box
-        sx={{
-        mt: 2,
-        width: 900,
-        height: "12%",
-        backgroundColor: '#0077b6',
-        borderRadius: '1%',
-        display: 'flex', 
-        justifyContent: 'center',
-        ml: 1.5,
-      }}>
+sx={{mt: 2,width: 900,height: "12%",backgroundColor: '#0077b6',borderRadius: '1%',display: 'flex', justifyContent: 'center',ml: 1.5,}}>
         <Typography variant="h2" color="white">
         Sistema de Inscripciones
       </Typography>
     </Box>
 
     <Stack direction="row" spacing={3}>
-    <Box
-        sx={{
-        mt: 1,
-        width: 450,
-        height: 450,
-        backgroundColor: 'white',
-        borderRadius: '1%',
-        display: 'flex', 
-        justifyContent: 'center',
-      }}>
+    <Box sx={{mt: 1,width: 450,height: 450,backgroundColor: 'white',borderRadius: '1%',display: 'flex', justifyContent: 'center',}}>
     <Card sx={{ maxWidth: 345}}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image="./src/public/ins.jpg"
-        />
+        <CardMedia component="img"alt="green iguana"height="140"image="./src/public/ins.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" align='center'>
             {rowsAlumno?.nombre || "Not loaded yet"}
@@ -121,17 +88,8 @@ const handleRowClick = () => {
       </Card>
       </Box>
 
-    <Box
-        sx={{
-        mt: 1,
-        width: 450,
-        height: 450,
-        backgroundColor: 'white',
-        borderRadius: '1%',
-        display: 'flex', 
-        justifyContent: 'center',
-      }}>
-        <div className="imageInsstyle">
+    <Box sx={{mt: 1,width: 450,height: 450,backgroundColor: 'white',borderRadius: '1%',display: 'flex', justifyContent: 'center',}}>
+       <div className="imageInsstyle">
         <img src="src\public\prepanetEst.png" width="100%" height="90%"></img>
         </div>
     </Box>

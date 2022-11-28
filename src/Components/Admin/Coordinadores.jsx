@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import Sidenav from '/src/Components/Sidenav.jsx';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 const columnAlumno = 
 [
@@ -53,7 +54,7 @@ const columns = [
     field: 'campus',
     headerName: 'Campus',
     width: 170,
-    //valueFormatter: ({ value }) => value.name
+    valueGetter: ({ value }) => value.nombre,
   },
 ];
 
@@ -106,40 +107,23 @@ export default function Settings() {
       {message}
     </div>
     <Box sx={{ pt: 4, pl: 2, height: '100%', width: '95%' }}>
-      <DataGrid
-        columns={columnAlumno}
-        rows={isRowsEstudiante}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        components={{
-          Toolbar: GridToolbar
-        }}
-        autoHeight
-        sx={{ pb: 5 }}
-      />
+      <DataGrid columns={columnAlumno} rows={isRowsEstudiante} pageSize={5} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}} autoHeight/>
     </Box>
     </div>
   );
 
   return (
 <div className="Back">
-        <div className="TopBar">
-        </div>
-        <Stack direction="row" spacing={32}>
+        <Stack direction="row" spacing={"16%"}>
     <Sidenav/>
         <div className="allCharts">
+        <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+          <Typography variant="h5"> Lista de Coordinadores </Typography> 
+          </Box>
           <Stack direction="row" spacing={5} mt={2}>
           <div className="tableSett">
             <Box sx={{ pt: 4, pl: 3, height: '90%', width: '95%' }}>
-              <DataGrid
-                rows={tablaDummy}
-                columns={columns}
-                pageSize={15}
-                rowsPerPageOptions={[15]}
-                components={{
-                  Toolbar: GridToolbar, Footer
-                }}
-              />
+              <DataGrid rows={tablaDummy} columns={columns} pageSize={15} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar, Footer}}/>
             </Box>
             </div>
             <div className="tableStats">

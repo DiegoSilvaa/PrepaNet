@@ -1,17 +1,17 @@
 import * as React from 'react';
 import '/src/styles/Alumnos.css'
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 import {
   DataGrid,
   GridToolbar,
 } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import Sidenav from '/src/Components/SidenavCoor.jsx';
+import Sidenav from '/src/Components/sidenavCoor.jsx';
 import Stack from '@mui/material/Stack';
 import {useContext} from "react";
 import AuthContext from '/src/context/AuthContext';
+import Typography from '@mui/material/Typography';
 
 const columnAlumno = 
 [
@@ -113,41 +113,23 @@ const renderTable = (
     {message}
   </div>
   <Box sx={{ pt: 4, pl: 2, height: '100%', width: '95%' }}>
-    <DataGrid
-      columns={columnAlumno}
-      rows={rowsAlumno}
-      pageSize={6}
-      rowsPerPageOptions={[15]}
-      components={{
-        Toolbar: GridToolbar
-      }}
-      autoHeight
-      sx={{ pb: 5 }}
-    />
+    <DataGrid columns={columnAlumno} rows={rowsAlumno} pageSize={6} rowsPerPageOptions={[10]} components={{ Toolbar: GridToolbar }} autoHeight/>
   </Box>
   </div>
 );
 
   return (
     <div className="Back">
-        <div className="TopBar">
-        </div>
-        <Stack direction="row" spacing={32}>
+        <Stack direction="row" spacing={"16%"}>
     <Sidenav/>
         <div className="allCharts">
+          <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+          <Typography variant="h5"> Lista de Alumnos </Typography> 
+          </Box>
           <Stack direction="row" spacing={5} mt={2}>
           <div className="tableSett">
             <Box sx={{ pt: 4, pl: 2, height: '90%', width: '95%' }}>
-              <DataGrid
-                rows={isRows}
-                columns={columns}
-                pageSize={15}
-                onRowClick={handleRowClick}
-                rowsPerPageOptions={[15]}
-                components={{
-                  Toolbar: GridToolbar
-                }}
-              />
+              <DataGrid rows={isRows} columns={columns} pageSize={15} onRowClick={handleRowClick} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}}/>
             </Box>
             </div>
             <div className="tableStats">

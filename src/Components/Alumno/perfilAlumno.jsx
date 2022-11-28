@@ -29,21 +29,11 @@ export default function Statistics() {
 
     return (
         <div className="Back">
-                <div className="TopBar">
-                </div>
                 <Stack direction="row" spacing={65}>
             <Sidenav/>
             <Stack spacing={2} justifyContent="center" alignItems="center">
                 <Box
-                 sx={{
-                    mt: 2,
-                    width: 625,
-                    height: 300,
-                    background: 'linear-gradient(to right bottom, #009FFD,#2A2A72)',
-                    borderRadius: '5px 5px 0px 0px',
-                    display: 'flex', 
-                    justifyContent: 'center',
-                  }}>
+                 sx={{mt: 2,width: 625,height: 300,background: 'linear-gradient(to right bottom, #009FFD,#2A2A72)',borderRadius: '5px 5px 0px 0px',display: 'flex', justifyContent: 'center',}}>
                     <Stack spacing={3} justifyContent="center" alignItems="center">
                     <div className="titlePerfil">
                         {perfil?.first_name || "Not loaded yet"} {perfil?.last_name || "Not loaded yet"}
@@ -52,20 +42,11 @@ export default function Statistics() {
                     </Stack>
                 </Box>
                 <Box
-                 sx={{
-                    width: 625,
-                    height: 250,
-                    background: 'white',
-                    borderRadius: '0px 0px 5px 5px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                  }}>
+                 sx={{width: 625,height: 250,background: 'white',borderRadius: '0px 0px 5px 5px',display: 'flex',justifyContent: 'center'}}>
                     <Stack spacing={6}>
                     <Typography variant="h5" align="center" gutterBottom sx={{backgroundColor: "#FEF5EF"}}> Informacion Academica </Typography>
                     <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
-                    <Card sx=
-                    {{ width: 180,
-                    backgroundColor: 'white'}}>
+                    <Card sx={{ width: 180,backgroundColor: 'white'}}>
                         <Typography variant="h6" color="text.secondary" align='center' sx={{backgroundColor: "#52b7e9",fontWeight: 'bold'}}>
                             Correo
                         </Typography>
@@ -76,9 +57,7 @@ export default function Statistics() {
                         </CardContent>
                         </Card>
 
-                        <Card sx=
-                    {{ width: 180,
-                    backgroundColor: 'white'}}>
+                        <Card sx={{ width: 180, backgroundColor: 'white'}}>
                         <Typography variant="h6" color="text.secondary" align='center' sx={{backgroundColor: "#52b7e9",fontWeight: 'bold'}}>
                             Campus
                         </Typography>
@@ -89,9 +68,7 @@ export default function Statistics() {
                         </CardContent>
                         </Card>
 
-                        <Card sx=
-                    {{ width: 180,
-                    backgroundColor: 'white'}}>
+                        <Card sx={{ width: 180, backgroundColor: 'white'}}>
                         <Typography variant="h6" color="text.secondary" align='center' sx={{backgroundColor: "#52b7e9",fontWeight: 'bold'}}>
                             Matricula
                         </Typography>
@@ -101,7 +78,6 @@ export default function Statistics() {
                         </Typography>
                         </CardContent>
                         </Card>
-
                         </Stack>
                     </Stack>
                 </Box>

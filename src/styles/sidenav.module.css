@@ -1,10 +1,10 @@
 .sidenav {
   margin: 0;
   padding: 0;
-  width: 200px;
+  width: 15%;
   background-color: rgb(3, 4, 94);
   position: absolute;
-  height: 94%;
+  min-height: 100vh;
 }
   
 .sideitem {
