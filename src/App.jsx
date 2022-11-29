@@ -16,7 +16,7 @@ import Alumnos from "/src/Components/Admin/Alumnos.jsx";
 import Home from "/src/Components/Admin/Home.jsx";
 import Periodos from "/src/Components/Admin/Periodos.jsx";
 import Coordinadores from "/src/Components/Admin/Coordinadores.jsx"
-import Reporte from "/src/Components/ADmin/ReporteAdmin.jsx";
+import Reporte from "/src/Components/Admin/ReporteAdmin.jsx";
 
 // Coordinador
 

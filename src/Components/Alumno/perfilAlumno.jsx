@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useEffect, useState} from "react";
-import CardHeader from '@mui/material/CardHeader';
 import axios from 'axios'
 import {useContext} from "react";
 import AuthContext from '/src/context/AuthContext';
@@ -29,8 +28,9 @@ export default function Statistics() {
 
     return (
         <div className="Back">
-                <Stack direction="row" spacing={65}>
+                <Stack direction="row" spacing={"2%"}>
             <Sidenav/>
+            <div className="allChartsEst">
             <Stack spacing={2} justifyContent="center" alignItems="center">
                 <Box
                  sx={{mt: 2,width: 625,height: 300,background: 'linear-gradient(to right bottom, #009FFD,#2A2A72)',borderRadius: '5px 5px 0px 0px',display: 'flex', justifyContent: 'center',}}>
@@ -82,6 +82,7 @@ export default function Statistics() {
                     </Stack>
                 </Box>
                 </Stack>
+                </div>
             </Stack>
             </div>
             );

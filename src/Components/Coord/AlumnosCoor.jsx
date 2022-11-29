@@ -12,66 +12,8 @@ import Stack from '@mui/material/Stack';
 import {useContext} from "react";
 import AuthContext from '/src/context/AuthContext';
 import Typography from '@mui/material/Typography';
-
-const columnAlumno = 
-[
-  { field: 'id', headerName: 'ID', width: 50 },
-  {
-    field: 'nombre',
-    headerName: 'Nombre',
-    width: 320,
-  },
-  {
-    field: 'orden',
-    headerName: 'Orden',
-    width: 100,
-  },
-  {
-    field: 'estatus',
-    headerName: 'Estatus',
-    width: 120,
-  },
-  {
-    field: 'duracion',
-    headerName: 'Duracion',
-    width: 80,
-  },
-];
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 100, type: 'number', },
-  { field: 'matricula', headerName: 'Matricula', width: 100, type: 'string',},
-  {
-    field: 'first_name',
-    headerName: 'First name',
-    width: 150,
-    type: 'string'
-  },
-  {
-    field: 'last_name',
-    headerName: 'Last name',
-    width: 150,
-    type: 'string'
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    type: 'string',
-    width: 200,
-    valueGetter: (params) =>
-      `${params.row.first_name || ''} ${params.row.last_name || ''}`,
-  },
-  {
-    field: 'campus',
-    type: 'string',
-    filterable: false,
-    headerName: 'Campus',
-    width: 170,
-    valueFormatter: ({ value }) => value.nombre
-  }
-];
+import { columnAlumno } from "/src/Components/Components/columnAlumno.jsx";
+import { columns } from "/src/Components/Components/columns.jsx";
 
 export default function Alumnos() {
 const authCTX = useContext(AuthContext);

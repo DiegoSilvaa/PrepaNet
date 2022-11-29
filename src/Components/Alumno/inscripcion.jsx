@@ -35,12 +35,16 @@ useEffect(() => {
 }, []);
 
 const handleRowClick = () => {
+      setIsSub(false);
+      setIsSubError(false);
+      setError(null);
       axios.post('https://prepnet.uc.r.appspot.com/api/alumnos/inscribir/'+rowsAlumno.id+'/',{ }, {
         headers:{
           'x-auth-token': authCTX.token
         }
-      }).then(res=>{  
+      }).then(res=>{ 
         setIsSub(true);
+        setError("Inscrito")
         //console.log(res)
       })
       .catch(err=>{
@@ -50,53 +54,67 @@ const handleRowClick = () => {
       })
 };
 
+const handleRowClickDes = () => {
+  setIsSub(false);
+  setIsSubError(false);
+  setError(null);
+  axios.post('https://prepnet.uc.r.appspot.com/api/alumnos/desinscribir/',{ }, {
+    headers:{
+      'x-auth-token': authCTX.token
+    }
+  }).then(res=>{ 
+    //console.log(res.data)
+    setIsSub(true);
+    setError("Desinscrito")
+    //console.log(res)
+  })
+  .catch(err=>{
+    //console.log(err.response.data)
+    setIsSubError(true);
+    setError(err.response.data)
+  })
+};
+
   return (
     <div className="Back">
-        <Stack direction="row" spacing={43}>
+        <Stack direction="row" spacing={'2%'}>
     <Sidenav/>
-      <Stack
-        direction="row"
-        paddingBottom={5}>
-    
-    <Box
-    sx={{mt: 2,width: 1000,height: 590,backgroundColor: 'white',borderRadius: '1%',display: 'flex', justifyContent: 'center',}}>
-    <Stack spacing={2}>
-        <Box
-sx={{mt: 2,width: 900,height: "12%",backgroundColor: '#0077b6',borderRadius: '1%',display: 'flex', justifyContent: 'center',ml: 1.5,}}>
+    <div className="allChartsEst">
+    <Box sx={{mt: 5,width: "90%",height: "100%",backgroundColor: 'white',borderRadius: '5%', justifyContent: 'center', pb: 5, pt: 5}}>
+    <Stack spacing={4} alignItems="center" justifyContent="center">
+        <Box sx={{width: '95%',height: "12%",backgroundColor: '#0077b6',borderRadius: '1%', justifyContent: 'center'}}>
         <Typography variant="h2" color="white">
         Sistema de Inscripciones
       </Typography>
     </Box>
 
-    <Stack direction="row" spacing={3}>
-    <Box sx={{mt: 1,width: 450,height: 450,backgroundColor: 'white',borderRadius: '1%',display: 'flex', justifyContent: 'center',}}>
-    <Card sx={{ maxWidth: 345}}>
-        <CardMedia component="img"alt="green iguana"height="140"image="./src/public/ins.jpg"/>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div" align='center'>
-            {rowsAlumno?.nombre || "Not loaded yet"}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" align='justify'>
-          {rowsAlumno?.description || "Not loaded yet"}
-          </Typography>
-        </CardContent>
-        <CardActions>
-      <Button size="small" onClick={() => handleRowClick()} > Inscribirte </Button>
-    </CardActions>
-    {isSubError ? <Alert severity="error"> {error} </Alert> : <div></div>}
-    {isSub ? <Alert severity="success"> Inscrito </Alert> : <div></div>}
-      </Card>
-      </Box>
-
-    <Box sx={{mt: 1,width: 450,height: 450,backgroundColor: 'white',borderRadius: '1%',display: 'flex', justifyContent: 'center',}}>
-       <div className="imageInsstyle">
-        <img src="src\public\prepanetEst.png" width="100%" height="90%"></img>
-        </div>
-    </Box>
+    <Box sx={{width: '100%', height: '100%', backgroundColor: 'white'}}>
+    <Stack direction="row" alignItems="center" justifyContent="space-evenly" ml={8}>
+      <Card sx={{ maxWidth: "40%", mb : '2%'}}>
+          <CardMedia component="img"alt="green iguana"height="140"image="./src/public/ins.jpg"/>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div" align='center'>
+              {rowsAlumno?.nombre || "Not loaded yet"}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" align='justify'>
+            {rowsAlumno?.description || "Not loaded yet"}
+            </Typography>
+          </CardContent>
+          <CardActions>
+        <Button size="small" onClick={() => handleRowClick()} > Inscribirte </Button>
+        <Button size="small" onClick={() => handleRowClickDes()} > Desinscribirte </Button>
+      </CardActions>
+      {isSubError ? <Alert severity="error"> {error} </Alert> : <div></div>}
+      {isSub ? <Alert severity="success"> {error} </Alert> : <div></div>}
+        </Card>
+        <div className="imageInsstyle">
+            <img src="src\public\prepanetEst.png" width="80%" height="90%"></img>
+          </div>
+        </Stack>
+        </Box>
       </Stack>
-    </Stack>
     </Box>
-    </Stack>
+    </div>
     </Stack>
     </div>
   );

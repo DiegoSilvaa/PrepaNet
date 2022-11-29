@@ -88,10 +88,12 @@ this.state2 = {
             options: {
               chart: {
                 type: 'bar',
-                height: 350,
+                height: "100%",
+                width: '100%',
                 stacked: true,
                 redrawOnWindowResize: true,
                 redrawOnParentResize: true,
+
               },
               colors: ['#189de4', '#46648c', '#52b7e9', '#146ca4','#16d4fb','#0885fa'],
               plotOptions: {
@@ -141,6 +143,8 @@ this.state2 = {
                 type: 'donut',
                 redrawOnWindowResize: true,
                 redrawOnParentResize: true,
+                height: "100%",
+                width: '100%',
               },
               title: {
                 text: 'Talleres Totales por Campus'
@@ -168,7 +172,7 @@ this.state2 = {
   render() {
     return (
       <div className="Back">
-        <Stack direction="row" spacing={'17%'}>
+        <Stack direction="row" spacing={'2%'}>
     <Sidenav/>
         <div className="allCharts">
         <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>

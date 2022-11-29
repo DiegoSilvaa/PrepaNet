@@ -16,32 +16,9 @@ import { useEffect } from "react";
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
+import { columns } from "/src/Components/Components/columnsPeriod.jsx";
+import { meses } from "/src/Components/Components/meses.jsx";
 
-const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 50 },
-  {
-    field: 'nombre',
-    headerName: 'Periodo',
-    width: 140,
-  },
-  {
-    field: 'isActive',
-    headerName: 'Activo',
-    type: 'boolean',
-    sortable: false,
-    width: 110,
-  },
-  {
-    field: 'createdAt',
-    type: 'dateTime',
-    headerName: 'Fecha de creacion',
-    width: 200,
-  },
-];
 
 
 export default function Statistics() {
@@ -51,8 +28,9 @@ export default function Statistics() {
   const [inicio, setInicio] = React.useState('');
   const [error, setError] = React.useState(false);
   const baseUrl = 'https://prepnet.uc.r.appspot.com/api/admin/periods/';
-
-
+  const [conf, setConf] = React.useState(false);
+  const [err2, setSameErr] = React.useState(false);
+  
   useEffect(() => {
     axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
       .then((response) => {
@@ -74,7 +52,11 @@ export default function Statistics() {
   };
 
   const handleUpdateAllRows = (e) => {
+    setConf(false);
+    setSameErr(false);
+    setError(false);
     if (inicio && fin) {
+      if ( inicio !== fin) {
     axios.post('https://prepnet.uc.r.appspot.com/api/admin/add-period/',
     {nombre: `${inicio}-${fin}`}, {
         headers:{
@@ -82,10 +64,14 @@ export default function Statistics() {
         }
       }).then(res=>{  
         console.log(res)
+        setConf(true);
       })
       .catch(err=>{
         console.log(err.response.data)
       })
+    } else {
+      setSameErr(true);
+    }
     } else {
       setError(true);
     }
@@ -94,7 +80,7 @@ export default function Statistics() {
 
   return (
     <div className="Back">
-        <Stack direction="row" spacing={"16%"}>
+        <Stack direction="row" spacing={"2%"}>
     <Sidenav/>
         <div className="allCharts">
         <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
@@ -102,7 +88,7 @@ export default function Statistics() {
           </Box>
         <Stack direction="row" spacing={5} mt={2} ml={'11%'}>
         <div className="tableSettP">
-          <Stack spacing={4} direction="column" alignItems="center" justifyContent="center">
+          <Stack spacing={2} direction="column" alignItems="center" justifyContent="center">
           <Typography variant="h5"> Agregar Periodos </Typography> 
             <p> <strong>Inicio </strong> y <strong>Fin</strong> de periodo. </p>
             <FormControl sx={{   width: "50%"}}>
@@ -127,9 +113,13 @@ export default function Statistics() {
                 ))}
               </Select>
             </FormControl>
+            <Stack direction="column" spacing={1} alignItems="center" justifyContent="center">
             <Button variant="contained" endIcon={<SendIcon />} 
-            onClick={() => handleUpdateAllRows()}  sx={{width: "50%"}}> Send </Button>
+            onClick={() => handleUpdateAllRows()}> Send </Button>
             {error ? <Alert severity="error"> Selecciona los meses </Alert> : <div></div>}
+            {err2 ? <Alert severity="error"> Meses Iguales </Alert> : <div></div>}
+            {conf ? <Alert severity="success"> Nuevo Periodo Creado </Alert> : <div></div>}
+            </Stack>
             </Stack>
             </div>
         <div className="tableStatsP">

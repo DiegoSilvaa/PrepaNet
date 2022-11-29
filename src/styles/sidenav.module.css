@@ -3,7 +3,7 @@
   padding: 0;
   width: 15%;
   background-color: rgb(3, 4, 94);
-  position: absolute;
+  position: relative;
   min-height: 100vh;
 }
   

@@ -50,14 +50,15 @@ function getColor(index){
 
   return (
     <div className="Back">
-        <Stack direction="row" spacing={"16%"}>
+        <Stack direction="row" spacing={"2%"}>
     <Sidenav/>
-    <Stack direction="column" alignItems="center" justifyContent="center">
-      <Box sx={{height: '10%', width:'95%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+    <div className="allChartsEst">
+    <Stack direction="column" spacing={1} alignItems="center" justifyContent="center">
+      <Box sx={{height: '5%', width:'95%', bgcolor: '#146ca4', mb: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
         <Typography variant="h5"> Lista de Periodos </Typography> 
       </Box>
-    <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2} mt={1} ml={3}>
-      <Card sx={{ width: '30%',height: '95%', backgroundColor: getColor(0), }}>
+    <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={1}>
+      <Card sx={{ maxWidth: "30%" , backgroundColor: getColor(0)}}>
         <CardMedia component="img" alt="green iguana" height="140" image="./src/public/lide1.jpeg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -69,7 +70,7 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={{ width: '30%', height: '95%', backgroundColor: getColor(1), }}>
+      <Card sx={{ maxWidth: "30%" , backgroundColor: getColor(1), }}>
         <CardMedia component="img"alt="green iguana"height="140"image="./src/public/motivaciones.png"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -81,7 +82,7 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(2), }}>
+      <Card sx={{ maxWidth: "30%" ,backgroundColor: getColor(2), }}>
         <CardMedia component="img"alt="green iguana"height="140"image="./src/public/emociones.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -94,8 +95,8 @@ function getColor(index){
       </Card>
         </Stack>
   
-        <Stack direction="row"divider={<Divider orientation="vertical" flexItem />}spacing={2} ml={3}>
-          <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(3), }}>
+        <Stack direction="row"divider={<Divider orientation="vertical" flexItem />}spacing={1}>
+          <Card sx={{ maxWidth: "30%" ,backgroundColor: getColor(3), }}>
         <CardMedia component="img"alt="green iguana"height="140"image="./src/public/relaciones.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -107,7 +108,7 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(4), }}>
+      <Card sx={{ maxWidth: "30%" ,backgroundColor: getColor(4) }}>
         <CardMedia component="img"alt="green iguana"height="140"image="./src/public/areas.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -119,7 +120,7 @@ function getColor(index){
         </CardContent>
       </Card>
   
-      <Card sx={{ width: '30%',height: '95%',backgroundColor: getColor(5), }}>
+      <Card sx={{ maxWidth: "30%" ,backgroundColor: getColor(5), }}>
         <CardMedia component="img"alt="green iguana"height="140"image="./src/public/metas.jpg"/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -132,6 +133,7 @@ function getColor(index){
       </Card>
       </Stack>
       </Stack>
+      </div>
     </Stack>
     </div>
   );

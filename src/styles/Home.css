@@ -1,12 +1,16 @@
 .allCharts{
-  margin-top: 5%;
-  padding: 1px 16px;
-  padding-bottom: 15px;
   width: 80%;
   height: 100%;
-  border-radius: 10px;
   text-align: center;
   justify-content: center;
+}
+
+.allChartsEst{
+  width: 80%;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
 }
 
 .chart1 {

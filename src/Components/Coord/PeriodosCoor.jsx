@@ -16,33 +16,8 @@ import { useEffect } from "react";
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
-
-const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 50 },
-  {
-    field: 'nombre',
-    headerName: 'Periodo',
-    width: 140,
-  },
-  {
-    field: 'isActive',
-    headerName: 'Activo',
-    type: 'boolean',
-    sortable: false,
-    width: 110,
-  },
-  {
-    field: 'createdAt',
-    type: 'dateTime',
-    headerName: 'Fecha de creacion',
-    width: 200,
-  },
-];
-
+import { columns } from "/src/Components/Components/columnsPeriod.jsx";
+import { meses } from "/src/Components/Components/meses.jsx";
 
 export default function Statistics() {
   const authCTX = useContext(AuthContext);

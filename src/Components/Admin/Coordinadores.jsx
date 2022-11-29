@@ -114,7 +114,7 @@ export default function Settings() {
 
   return (
 <div className="Back">
-        <Stack direction="row" spacing={"16%"}>
+        <Stack direction="row" spacing={"2%"}>
     <Sidenav/>
         <div className="allCharts">
         <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>

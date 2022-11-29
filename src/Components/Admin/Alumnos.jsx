@@ -12,63 +12,8 @@ import Stack from '@mui/material/Stack';
 import {useContext} from "react";
 import AuthContext from '/src/context/AuthContext';
 import Typography from '@mui/material/Typography';
-
-const columnAlumno = 
-[
-  { field: 'id', headerName: 'ID', width: 50 },
-  {
-    field: 'nombre',
-    headerName: 'Nombre',
-    width: 320,
-  },
-  {
-    field: 'orden',
-    headerName: 'Orden',
-    width: 100,
-  },
-  {
-    field: 'estatus',
-    headerName: 'Estatus',
-    width: 120,
-  },
-  {
-    field: 'duracion',
-    headerName: 'Duracion',
-    width: 80,
-  },
-];
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 50, type: 'number', },
-  { field: 'matricula', headerName: 'Matricula', width: 100, type: 'string',},
-  {
-    field: 'first_name',
-    headerName: 'First name',
-    width: 150,
-    type: 'string'
-  },
-  {
-    field: 'last_name',
-    headerName: 'Last name',
-    width: 150,
-    type: 'string'
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    type: 'string',
-    width: 200,
-    valueGetter: (params) =>
-      `${params.row.first_name || ''} ${params.row.last_name || ''}`,
-  },
-  {
-    field: 'campus',
-    type: 'string',
-    headerName: 'Campus',
-    width: 170,
-    valueGetter: ({ value }) => value.nombre,
-  }
-];
+import { columnAlumno } from "/src/Components/Components/columnAlumno.jsx";
+import { columns } from "/src/Components/Components/columns.jsx";
 
 export default function Alumnos() {
 const authCTX = useContext(AuthContext);
@@ -117,7 +62,7 @@ const renderTable = (
 
   return (
     <div className="Back">
-        <Stack direction="row" spacing={"16%"}>
+        <Stack direction="row" spacing={"2%"}>
     <Sidenav/>
         <div className="allCharts">
           <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
