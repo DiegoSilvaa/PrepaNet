@@ -33,7 +33,7 @@ export default function Statistics() {
             <div className="allChartsEst">
             <Stack spacing={2} justifyContent="center" alignItems="center">
                 <Box
-                 sx={{mt: 2,width: 625,height: 300,background: 'linear-gradient(to right bottom, #009FFD,#2A2A72)',borderRadius: '5px 5px 0px 0px',display: 'flex', justifyContent: 'center',}}>
+                 sx={{mt: 2,width: 625,height: 300,background: 'linear-gradient(90deg, rgba(0,210,252,1) 22%, rgba(255,255,255,1) 80%)',borderRadius: '5px 5px 0px 0px',display: 'flex', justifyContent: 'center',}}>
                     <Stack spacing={3} justifyContent="center" alignItems="center">
                     <div className="titlePerfil">
                         {perfil?.first_name || "Not loaded yet"} {perfil?.last_name || "Not loaded yet"}

@@ -53,11 +53,11 @@ function getColor(index){
         <Stack direction="row" spacing={"2%"}>
     <Sidenav/>
     <div className="allChartsEst">
-    <Stack direction="column" spacing={1} alignItems="center" justifyContent="center">
-      <Box sx={{height: '5%', width:'95%', bgcolor: '#146ca4', mb: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
-        <Typography variant="h5"> Lista de Periodos </Typography> 
+    <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+      <Box sx={{ height: '5%', width:'95%', bgcolor: '#146ca4',borderRadius: 1, color: "white"}}>
+        <Typography variant="h5"> Lista de Estudiantes </Typography> 
       </Box>
-    <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={1}>
+    <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} justifyContent="center" spacing={1}>
       <Card sx={{ maxWidth: "30%" , backgroundColor: getColor(0)}}>
         <CardMedia component="img" alt="green iguana" height="140" image="./src/public/lide1.jpeg"/>
         <CardContent>
@@ -95,7 +95,7 @@ function getColor(index){
       </Card>
         </Stack>
   
-        <Stack direction="row"divider={<Divider orientation="vertical" flexItem />}spacing={1}>
+        <Stack direction="row"divider={<Divider orientation="vertical" flexItem />}justifyContent="center"  spacing={1}>
           <Card sx={{ maxWidth: "30%" ,backgroundColor: getColor(3), }}>
         <CardMedia component="img"alt="green iguana"height="140"image="./src/public/relaciones.jpg"/>
         <CardContent>

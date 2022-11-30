@@ -18,7 +18,8 @@ import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import { columns } from "/src/Components/Components/columnsPeriod.jsx";
 import { meses } from "/src/Components/Components/meses.jsx";
-
+import TextField from '@mui/material/TextField';
+import { SettingsApplications } from "@mui/icons-material";
 
 
 export default function Statistics() {
@@ -26,11 +27,12 @@ export default function Statistics() {
   const [isRows, setRows] = React.useState([]);
   const [fin, setFin] = React.useState('');
   const [inicio, setInicio] = React.useState('');
-  const [error, setError] = React.useState(false);
+  const [anio, setAnio] = React.useState('');
   const baseUrl = 'https://prepnet.uc.r.appspot.com/api/admin/periods/';
+  const [error, setError] = React.useState(false);
   const [conf, setConf] = React.useState(false);
   const [err2, setSameErr] = React.useState(false);
-  
+
   useEffect(() => {
     axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
       .then((response) => {
@@ -51,27 +53,31 @@ export default function Statistics() {
     setFin(event.target.value);
   };
 
+  const handleChangeAnio = (e) => {
+    setAnio(e.target.value);
+  }
+
   const handleUpdateAllRows = (e) => {
     setConf(false);
-    setSameErr(false);
     setError(false);
-    if (inicio && fin) {
-      if ( inicio !== fin) {
-    axios.post('https://prepnet.uc.r.appspot.com/api/admin/add-period/',
-    {nombre: `${inicio}-${fin}`}, {
-        headers:{
-          'x-auth-token': authCTX.token
-        }
-      }).then(res=>{  
-        console.log(res)
-        setConf(true);
-      })
-      .catch(err=>{
-        console.log(err.response.data)
-      })
-    } else {
-      setSameErr(true);
-    }
+    
+    if (anio && inicio && fin) {
+      if (inicio !== fin) {
+      axios.post('https://prepnet.uc.r.appspot.com/api/admin/add-period/',
+      {nombre: `${inicio}-${fin} ${anio}`}, {
+          headers:{
+            'x-auth-token': authCTX.token
+          }
+        }).then(res=>{  
+          console.log(res)
+          setConf(true);
+        })
+        .catch(err=>{
+          console.log(err.response.data)
+        })
+      } else {
+        setError(true);
+      }
     } else {
       setError(true);
     }
@@ -86,7 +92,7 @@ export default function Statistics() {
         <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
           <Typography variant="h5"> Lista de Periodos </Typography> 
           </Box>
-        <Stack direction="row" spacing={5} mt={2} ml={'11%'}>
+        <Stack direction="row" spacing={5} mt={2}justifyContent="center">
         <div className="tableSettP">
           <Stack spacing={2} direction="column" alignItems="center" justifyContent="center">
           <Typography variant="h5"> Agregar Periodos </Typography> 
@@ -113,11 +119,13 @@ export default function Statistics() {
                 ))}
               </Select>
             </FormControl>
+            <Box sx={{ width: "50%"}}>
+              <TextField  id="outlined-name" label="Name"  onChange={handleChangeAnio} multiline/>
+            </Box>
             <Stack direction="column" spacing={1} alignItems="center" justifyContent="center">
             <Button variant="contained" endIcon={<SendIcon />} 
             onClick={() => handleUpdateAllRows()}> Send </Button>
-            {error ? <Alert severity="error"> Selecciona los meses </Alert> : <div></div>}
-            {err2 ? <Alert severity="error"> Meses Iguales </Alert> : <div></div>}
+            {error ? <Alert severity="error"> Error </Alert> : <div></div>}
             {conf ? <Alert severity="success"> Nuevo Periodo Creado </Alert> : <div></div>}
             </Stack>
             </Stack>

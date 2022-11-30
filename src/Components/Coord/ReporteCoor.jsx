@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Stack from '@mui/material/Stack';
-import Sidenav from '/src/Components/sidenav.jsx';
+import Sidenav from '/src/Components/sidenavCoor.jsx';
 import { useEffect, useState} from "react";
 import axios from 'axios'
 import {useContext} from "react";
 import AuthContext from '/src/context/AuthContext';
 import { columnReporte } from "/src/Components/Components/columnReporte.jsx";
 import { DataGrid, GridToolbar} from '@mui/x-data-grid';
-
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 export default function Reporte() {
     const authCTX = useContext(AuthContext);
     const [isRows, setRows] = React.useState([]);
@@ -27,12 +28,19 @@ export default function Reporte() {
 
     return (
         <div className="Back">
-        <Stack direction="row" spacing={30}>
+        <Stack direction="row" spacing={"2%"}>
     <Sidenav/>
-        <Stack spacing={5}>
-        <DataGrid rows={isRows} columns={columnReporte} pageSize={15} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}}/>
-        </Stack>
-    </Stack>
+    <div className="allCharts">
+    <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+          <Typography variant="h5"> Lista de Reporte </Typography> 
+          </Box>
+          <div className="tableSettReporte">
+            <Box display="flex"justifyContent="center"alignItems="center"minHeight="100%"sx={{pl: "5%",height: '95%', width: '95%'}}>
+              <DataGrid rows={isRows} columns={columnReporte} getRowId={(row) => row.matricula} pageSize={15} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}}/>
+            </Box>
+            </div>
+        </div>
+      </Stack>
     </div>
     );
 };
