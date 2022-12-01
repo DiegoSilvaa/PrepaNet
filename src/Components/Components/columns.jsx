@@ -4,20 +4,20 @@ export const columns = [
     {
       field: 'first_name',
       headerName: 'First name',
-      width: 150,
+      width: 100,
       type: 'string'
     },
     {
       field: 'last_name',
       headerName: 'Last name',
-      width: 150,
+      width: 100,
       type: 'string'
     },
     {
       field: 'fullName',
       headerName: 'Full name',
       type: 'string',
-      width: 200,
+      width: 150,
       valueGetter: (params) =>
         `${params.row.first_name || ''} ${params.row.last_name || ''}`,
     },
@@ -25,7 +25,7 @@ export const columns = [
       field: 'campus',
       type: 'string',
       headerName: 'Campus',
-      width: 170,
+      width: 100,
       valueGetter: ({ value }) => value.nombre,
     }
   ];

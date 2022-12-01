@@ -9,12 +9,12 @@ export const columnAlumno =
   {
     field: 'orden',
     headerName: 'Orden',
-    width: 100,
+    width: 80,
   },
   {
     field: 'estatus',
     headerName: 'Estatus',
-    width: 120,
+    width: 100,
   },
   {
     field: 'duracion',

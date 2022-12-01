@@ -8,7 +8,7 @@ import AuthContext from '/src/context/AuthContext';
 import { columnReporte } from "/src/Components/Components/columnReporte.jsx";
 import { DataGrid, GridToolbar} from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-
+import Typography from '@mui/material/Typography';
 export default function Reporte() {
     const authCTX = useContext(AuthContext);
     const [isRows, setRows] = React.useState([]);
@@ -31,6 +31,9 @@ export default function Reporte() {
         <Stack direction="row" spacing={"2%"}>
     <Sidenav/>
     <div className="allCharts">
+    <Box sx={{height: '10%', width:'100%', bgcolor: '#146ca4', mt: 2,borderRadius: 1, color: "white", justifyContent:"center",alignItems:"center", display:"flex"}}>
+          <Typography variant="h5"> Reporte </Typography> 
+          </Box>
           <div className="tableSettReporte">
             <Box display="flex"justifyContent="center"alignItems="center"minHeight="100%"sx={{pl: "5%",height: '95%', width: '95%'}}>
               <DataGrid rows={isRows} columns={columnReporte} getRowId={(row) => row.matricula} pageSize={15} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}}/>

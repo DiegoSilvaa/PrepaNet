@@ -33,7 +33,7 @@ function getColor(index){
   var val = rowsAlumno[index]?.estatus || "white"
   //console.log(val);
   if (val === 'Sin Cursar') {
-    return '#D7DBDD'
+    return 'rgb(61, 61, 61)'
   }
   else if (val === 'Cursando') {
     return 'white'
@@ -55,7 +55,7 @@ function getColor(index){
     <div className="allChartsEst">
     <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
       <Box sx={{ height: '5%', width:'95%', bgcolor: '#146ca4',borderRadius: 1, color: "white"}}>
-        <Typography variant="h5"> Lista de Estudiantes </Typography> 
+        <Typography variant="h5"> Lista de Cursos </Typography> 
       </Box>
     <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} justifyContent="center" spacing={1}>
       <Card sx={{ maxWidth: "30%" , backgroundColor: getColor(0)}}>

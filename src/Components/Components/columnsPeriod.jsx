@@ -3,14 +3,14 @@ export const columns = [
     {
       field: 'nombre',
       headerName: 'Periodo',
-      width: 140,
+      width: 135,
     },
     {
       field: 'isActive',
       headerName: 'Activo',
       type: 'boolean',
       sortable: false,
-      width: 110,
+      width: 70,
     },
     {
       field: 'createdAt',

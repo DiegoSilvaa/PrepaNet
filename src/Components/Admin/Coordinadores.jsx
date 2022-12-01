@@ -18,23 +18,23 @@ import AuthContext from '/src/context/AuthContext';
 
 const columnAlumno = 
 [
-  { field: 'id', headerName: 'ID', width: 100 },
+  { field: 'id', headerName: 'ID', width: 50 },
   {
     field: 'first_name',
     headerName: 'Nombre',
-    width: 150,
+    width: 100,
   },
   {
     field: 'last_name',
     headerName: 'Apellido',
-    width: 150,
+    width: 100,
   },
   {
       field: 'fullName',
       headerName: 'Full name',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
-      width: 200,
+      width: 150,
       valueGetter: (params) =>
         `${params.row.first_name || ''} ${params.row.last_name || ''}`,
   },
@@ -46,7 +46,7 @@ const columnAlumno =
   {
     field: 'taller',
     headerName: 'Taller',
-    width: 170,
+    width: 320,
     valueGetter: ({ value }) => {
       if (value) {
         return value.nombre
@@ -62,19 +62,19 @@ const columnsCoord = [
   {
     field: 'nombre',
     headerName: 'First name',
-    width: 150,
+    width: 100,
   },
   {
     field: 'apellido',
     headerName: 'Last name',
-    width: 150,
+    width: 100,
   },
   {
     field: 'fullName',
     headerName: 'Full name',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
-    width: 200,
+    width: 150,
     valueGetter: (params) =>
       `${params.row.nombre || ''} ${params.row.apellido || ''}`,
   },
@@ -86,7 +86,7 @@ const columnsCoord = [
   {
     field: 'campus',
     headerName: 'Campus',
-    width: 170,
+    width: 100,
     valueGetter: ({ value }) => value.nombre,
   },
 ];
