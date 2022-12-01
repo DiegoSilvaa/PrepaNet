@@ -96,7 +96,7 @@ import CardMedia from '@mui/material/CardMedia';
     };
 
     const chartTaller1 = {
-      series: [123,312,123,435], //promedio
+      series: promedio,
       options: {
         chart: {
           type: 'pie',
@@ -134,6 +134,12 @@ import CardMedia from '@mui/material/CardMedia';
               <Box sx={{width: "100%", height: "100%", border: 1, borderColor: 'black', backgroundColor: 'white',color: 'black'}}>
                 <Card sx={{ maxWidth: "100%" }}>
                   <CardContent>
+                  <Typography gutterBottom variant="h6" component="div">
+                    Tipo de Usuario:
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  {authCTX.userType}
+                  </Typography>
                     <Typography gutterBottom variant="h6" component="div">
                       Total de Alumnos Inscritos:
                     </Typography>

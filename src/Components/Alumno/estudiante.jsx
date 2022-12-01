@@ -20,7 +20,7 @@ const [rowsAlumno, setIsRowsAlumno] = useState([]);
 useEffect(() => {
   axios.get(`${baseUrl}`, { headers: {"x-auth-token": authCTX.token}})
     .then((response) => {
-      //console.log(response.data)
+      console.log(response.data)
       setIsRowsAlumno(response.data);
     })
     .catch(err =>{
@@ -41,7 +41,7 @@ function getColor(index){
   else if (val === 'Aprobado') {
     return '#2ECC71'
   }
-  else if (val === 'Reprobado') {
+  else if (val === 'No Aprobado') {
     return '#E74C3C '
   } else {
     return 'white'

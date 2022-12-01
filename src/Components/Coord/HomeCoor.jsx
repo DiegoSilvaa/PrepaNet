@@ -58,7 +58,7 @@ import CardMedia from '@mui/material/CardMedia';
     }, []);
 
     const chartTaller2 = {
-      series: [44, 55, 41, 17, 15,23],
+      series: data,
       options: {
         chart: {
           type: 'pie',
@@ -96,6 +96,12 @@ import CardMedia from '@mui/material/CardMedia';
               <Box sx={{width: "100%",height: "100%",backgroundColor: 'white',border: 1, borderColor: 'black',justifyContent:"center",alignItems:"center"}}>
               <Card sx={{ maxWidth: "100%" }}>
                 <CardContent>
+                  <Typography gutterBottom variant="h6" component="div">
+                    Tipo de Usuario:
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  {authCTX.userType}
+                  </Typography>
                   <Typography gutterBottom variant="h6" component="div">
                     Total de Alumnos Inscritos:
                   </Typography>

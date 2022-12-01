@@ -20,16 +20,17 @@ export default function Inscripcion() {
 const authCTX = useContext(AuthContext);
 const [rowsAlumno, setIsRowsAlumno] = useState([]); 
 const [isSub, setIsSub] = useState(false);
+const [complete, setComplete] = useState(false);
 const [isSubError, setIsSubError] = useState(false);
 const [error, setError] = useState('');
 useEffect(() => {
   axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
     .then((response) => {
-      //console.log(response.data)
+      console.log(response.data)
       setIsRowsAlumno(response.data);
     })
     .catch(err =>{
-      //console.log(err);
+      setComplete(true);
     })
     ;
 }, []);
@@ -45,10 +46,10 @@ const handleRowClick = () => {
       }).then(res=>{ 
         setIsSub(true);
         setError("Inscrito")
-        //console.log(res)
+        console.log(res)
       })
       .catch(err=>{
-        //console.log(err.response.data)
+        console.log(err.response.data)
         setIsSubError(true);
         setError(err.response.data)
       })
@@ -94,10 +95,10 @@ const handleRowClickDes = () => {
           <CardMedia component="img"alt="green iguana"height="140"image="./src/public/ins.jpg"/>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" align='center'>
-              {rowsAlumno?.nombre || "Not loaded yet"}
+            {complete ? <p>Todos los talleres completados.</p> : rowsAlumno?.nombre || "Not loaded yet"}
             </Typography>
             <Typography variant="body2" color="text.secondary" align='justify'>
-            {rowsAlumno?.description || "Not loaded yet"}
+            {complete ? <p>Sin Cursos.</p> : rowsAlumno?.description || "Not loaded yet"}
             </Typography>
           </CardContent>
           <CardActions>

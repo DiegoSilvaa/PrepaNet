@@ -13,12 +13,20 @@ export default function Reporte() {
     const authCTX = useContext(AuthContext);
     const [isRows, setRows] = React.useState([]);
     const baseUrl = 'https://prepnet.uc.r.appspot.com/api/coords/reporte/';  
+    const [id, setID] = useState([]);
 
     useEffect(() => {
+      var cont = 1;
+      const cant = [];
       axios.get(`${baseUrl}`, { headers: {"Content-Type" : 'application/json',"x-auth-token": authCTX.token}})
         .then((response) => {
           console.log(response.data)
           setRows(response.data);
+          response.data.map(item => {
+            cant.push(item.cont);
+            cont = cont + 1;
+        })
+        setID(cant);
         })
         .catch(err =>{
           console.log(err);
@@ -36,7 +44,7 @@ export default function Reporte() {
           </Box>
           <div className="tableSettReporte">
             <Box display="flex"justifyContent="center"alignItems="center"minHeight="100%"sx={{pl: "5%",height: '95%', width: '95%'}}>
-              <DataGrid rows={isRows} columns={columnReporte} getRowId={(row) => row.matricula} pageSize={15} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}}/>
+              <DataGrid rows={isRows} columns={columnReporte} getRowId={(row) => `${row.matricula}-${row.taller}`} pageSize={15} rowsPerPageOptions={[15]} components={{Toolbar: GridToolbar}}/>
             </Box>
             </div>
         </div>

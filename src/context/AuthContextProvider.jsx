@@ -24,7 +24,6 @@ const AuthContextProvider = props => {
   const setName = (name) => setState({name});
   const navigate = useNavigate();
 
-
   useEffect(()=>{
     const storeIsLoggedIn = sessionStorage.getItem('isLoggedIn');
     const storeIsError = sessionStorage.getItem('loginError');
@@ -64,6 +63,7 @@ const AuthContextProvider = props => {
             setToken(res.data.token);
             setUserType(res.data.userType);
             setName(email);
+            
 
             sessionStorage.setItem('isLoggedIn', '1');
             sessionStorage.setItem('userInfo', JSON.stringify({
